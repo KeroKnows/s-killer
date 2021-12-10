@@ -1,10 +1,10 @@
 .container
   .row
-    / h1 #{query}
-    / p #{jobs[0].description}
-    h2.my-3
-      span.fst-italic id="title" =< "#{skillset.query}"
-    a.link-secondary id="to_last_page" href="/?query=#{skillset.query}"
+    h2.my-3 id="title"
+      | Result for
+      span.fst-italic
+        =< "#{skillset.query}"
+    a.link-secondary id="return-btn" href="/?query=#{skillset.query}"
       i.fas.fa-share.mx-1
       | search for other jobs
       
@@ -14,19 +14,19 @@
       .card
         .card-header Skills Required
         .card-body
-          ul.list-group.list-group-flush id="skill_list"
+          ul.list-group.list-group-flush id="skill-list"
             - skillset.skills.each do |skill|
               li.list-group-item
-                span id="skill_name"
+                span.skill-name
                   = skill.name
-                span.badge.mx-2.bg-light.rounded.text-black.float-end id="skill_count"
+                span.badge.mx-2.bg-light.rounded.text-black.float-end.skill-count
                   = skill.count
     .col-8
       / Salary card
       .card
         .card-header Salary
         .card-body
-          ul.list-group.list-group-flush id="salary_list"
+          ul.list-group.list-group-flush id="salary-list"
             li.list-group-item
               | Maximum Year Salary:
               span< = skillset.max_salary
@@ -36,7 +36,7 @@
   
   .row
     / Job Vacancy cards
-    div id="vacancies"
+    div id="vacancy-box"
       - skillset.jobs.each do |job|
         .card.my-5.p-3
           p.card-subtitle.text-muted

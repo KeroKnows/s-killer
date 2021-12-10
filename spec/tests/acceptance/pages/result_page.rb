@@ -6,17 +6,17 @@ class ResultPage
 
   page_url "#{Skiller::App.config.APP_HOST}/result?query=<%=params[:query]%>"
 
-  div(:warning_message, id: 'flash_bar_danger')
-  div(:success_message, id: 'flash_bar_success')
+  div(:warning_message, id: 'flash-bar-danger')
+  div(:success_message, id: 'flash-bar-success')
 
-  span(:title, id: 'title')
-  unordered_list(:skill_list, id: 'skill_list')
-  unordered_list(:salary_list, id: 'salary_list')
-  div(:vacancies, id: 'vacancies')
-  link(:to_last_page, id: 'to_last_page')
+  h2(:title, id: 'title')
+  unordered_list(:skill_list, id: 'skill-list')
+  unordered_list(:salary_list, id: 'salary-list')
+  div(:vacancies, id: 'vacancy-box')
+  link(:to_last_page, id: 'return-btn')
 
   def skills
-    skill_list_element.spans(id: 'skill_name').map(&:text)
+    skill_list_element.spans(class: 'skill-name').map(&:text)
   end
 
   def return_to_index
