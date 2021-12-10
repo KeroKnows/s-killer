@@ -7,6 +7,7 @@ module Views
   class Job
     def initialize(job)
       @job = job
+      @salary = job.salary
       @description = nil
     end
 
@@ -32,13 +33,11 @@ module Views
     end
 
     def max_salary
-      salary = @job.salary
-      "#{salary.currency}$ #{salary.year_max}"
+      "#{@salary.currency}$ #{@salary.year_max}"
     end
 
     def min_salary
-      salary = @job.salary
-      "#{salary.currency}$ #{salary.year_min}"
+      "#{@salary.currency}$ #{@salary.year_min}"
     end
 
     # UTILITIES

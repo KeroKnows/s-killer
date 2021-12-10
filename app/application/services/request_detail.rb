@@ -5,6 +5,7 @@ require 'dry/monads'
 module Skiller
   module Service
     # Get job details with the given job id
+    # :reek:TooManyStatements { max_statements: 7 } for Success/Failure and rescued statements
     class RequestDetail
       include Dry::Monads::Result::Mixin
 
