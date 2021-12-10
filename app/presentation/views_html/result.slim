@@ -43,8 +43,10 @@
             i.fas.fa-map-marker-alt.mx-1
             span = job.location
           h4.px-2.card-title = job.title
-          hr.my-2
-          p.p-3.px-4.card-text = job.brief
+          hr.mt-2.mb-3
+          p.px-4.card-text = job.brief
+          a.link-secondary.stretched-link href="/detail/#{job.id}"
+            | read more...
         
 
   / Navigator

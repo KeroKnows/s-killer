@@ -26,6 +26,13 @@ module Skiller
         end
       end
 
+      # GET /detail/{JOB_ID}
+      router.on 'detail' do
+        router.on Integer do |job_id|
+          "Please show detail #{job_id}"
+        end
+      end
+
       # GET /result
       router.on 'result' do
         router.is do

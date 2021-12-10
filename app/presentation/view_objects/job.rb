@@ -10,6 +10,10 @@ module Views
       @description = nil
     end
 
+    def id
+      @job.db_id
+    end
+
     def title
       @job.title
     end
