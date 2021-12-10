@@ -31,6 +31,16 @@ module Views
       @description
     end
 
+    def max_salary
+      salary = @job.salary
+      "#{salary.currency}$ #{salary.year_max}"
+    end
+
+    def min_salary
+      salary = @job.salary
+      "#{salary.currency}$ #{salary.year_min}"
+    end
+
     # UTILITIES
 
     def parse_description

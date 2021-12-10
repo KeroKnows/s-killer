@@ -29,7 +29,17 @@ module Skiller
       # GET /detail/{JOB_ID}
       router.on 'detail' do
         router.on Integer do |job_id|
-          "Please show detail #{job_id}"
+          job_info = Service::RequestDetail.new.call(job_id)
+
+          if job_info.failure?
+            flash[:error] = job_info.failure
+            router.redirect '/'
+          end
+
+          job_info = job_info.value!
+          job = Views::Job.new(job_info)
+
+          view 'detail', locals: { job: job }
         end
       end
 
