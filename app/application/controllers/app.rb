@@ -26,8 +26,8 @@ module Skiller
         end
       end
 
-      # GET /details
-      router.on 'details' do
+      # GET /result
+      router.on 'result' do
         router.is do
           router.post do
             query_form = Forms::Query.new.call(router.params)
@@ -44,7 +44,7 @@ module Skiller
             )
 
             flash[:notice] = "Your last query is '#{skillset.query}'"
-            view 'details', locals: { skillset: skillset }
+            view 'result', locals: { skillset: skillset }
           end
         end
       end

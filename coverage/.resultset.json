@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/joaw/workspace/SOA2021/s-killer/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/init.rb": {
         "lines": [
           null,
           null,
@@ -10,14 +10,14 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/config/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/config/init.rb": {
         "lines": [
           null,
           null,
           1
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/config/environment.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/config/environment.rb": {
         "lines": [
           null,
           null,
@@ -64,7 +64,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/init.rb": {
         "lines": [
           null,
           null,
@@ -74,7 +74,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/init.rb": {
         "lines": [
           null,
           null,
@@ -84,7 +84,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/database/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/database/init.rb": {
         "lines": [
           null,
           null,
@@ -94,7 +94,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/database/orm/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/database/orm/init.rb": {
         "lines": [
           null,
           null,
@@ -103,7 +103,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/database/orm/job_orm.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/database/orm/job_orm.rb": {
         "lines": [
           null,
           null,
@@ -141,7 +141,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/database/orm/job_skill_orm.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/database/orm/job_skill_orm.rb": {
         "lines": [
           null,
           null,
@@ -167,7 +167,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/database/orm/query_job_orm.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/database/orm/query_job_orm.rb": {
         "lines": [
           null,
           null,
@@ -189,7 +189,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/database/orm/skill_orm.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/database/orm/skill_orm.rb": {
         "lines": [
           null,
           null,
@@ -211,7 +211,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/skill_extractor/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/skill_extractor/init.rb": {
         "lines": [
           null,
           null,
@@ -220,7 +220,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/skill_extractor/extractor.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/skill_extractor/extractor.rb": {
         "lines": [
           null,
           null,
@@ -269,7 +269,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/reed/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/reed/init.rb": {
         "lines": [
           null,
           null,
@@ -278,7 +278,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/reed/reed_api.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/reed/reed_api.rb": {
         "lines": [
           null,
           null,
@@ -335,7 +335,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/http_response.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/http_response.rb": {
         "lines": [
           null,
           null,
@@ -358,7 +358,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/freecurrency/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/freecurrency/init.rb": {
         "lines": [
           null,
           null,
@@ -367,7 +367,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/infrastructure/freecurrency/freecurrency_api.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/infrastructure/freecurrency/freecurrency_api.rb": {
         "lines": [
           null,
           null,
@@ -436,7 +436,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/init.rb": {
         "lines": [
           null,
           null,
@@ -446,7 +446,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/jobs/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/jobs/init.rb": {
         "lines": [
           null,
           null,
@@ -458,7 +458,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/jobs/entities/job.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/jobs/entities/job.rb": {
         "lines": [
           null,
           null,
@@ -483,7 +483,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/jobs/values/salary.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/jobs/values/salary.rb": {
         "lines": [
           null,
           null,
@@ -519,7 +519,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/jobs/entities/salary_distribution.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/jobs/entities/salary_distribution.rb": {
         "lines": [
           null,
           null,
@@ -556,7 +556,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/jobs/repositories/for.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/jobs/repositories/for.rb": {
         "lines": [
           null,
           null,
@@ -582,7 +582,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/jobs/repositories/jobs.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/jobs/repositories/jobs.rb": {
         "lines": [
           null,
           null,
@@ -651,7 +651,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/jobs/repositories/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/jobs/repositories/init.rb": {
         "lines": [
           null,
           null,
@@ -659,7 +659,7 @@
           1
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/jobs/repositories/queries_jobs.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/jobs/repositories/queries_jobs.rb": {
         "lines": [
           null,
           null,
@@ -698,7 +698,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/jobs/mappers/freecurrency_mappers/exchange_rate_mapper.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/jobs/mappers/freecurrency_mappers/exchange_rate_mapper.rb": {
         "lines": [
           null,
           null,
@@ -726,7 +726,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/jobs/mappers/reed_mappers/job_mapper.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/jobs/mappers/reed_mappers/job_mapper.rb": {
         "lines": [
           null,
           null,
@@ -783,7 +783,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/skills/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/skills/init.rb": {
         "lines": [
           null,
           null,
@@ -795,7 +795,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/skills/entities/skill.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/skills/entities/skill.rb": {
         "lines": [
           null,
           null,
@@ -816,7 +816,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/skills/repositories/jobs_skills.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/skills/repositories/jobs_skills.rb": {
         "lines": [
           null,
           null,
@@ -857,7 +857,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/skills/repositories/skills.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/skills/repositories/skills.rb": {
         "lines": [
           null,
           null,
@@ -885,7 +885,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/domain/skills/mappers/skill_mapper.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/domain/skills/mappers/skill_mapper.rb": {
         "lines": [
           null,
           null,
@@ -928,7 +928,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/presentation/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/presentation/init.rb": {
         "lines": [
           null,
           null,
@@ -938,7 +938,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/presentation/view_objects/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/presentation/view_objects/init.rb": {
         "lines": [
           null,
           null,
@@ -947,7 +947,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/presentation/view_objects/job.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/presentation/view_objects/job.rb": {
         "lines": [
           null,
           null,
@@ -991,7 +991,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/presentation/view_objects/skill.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/presentation/view_objects/skill.rb": {
         "lines": [
           null,
           null,
@@ -1016,7 +1016,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/presentation/view_objects/skilljob.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/presentation/view_objects/skilljob.rb": {
         "lines": [
           null,
           null,
@@ -1090,7 +1090,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/application/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/application/init.rb": {
         "lines": [
           null,
           null,
@@ -1100,7 +1100,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/application/forms/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/application/forms/init.rb": {
         "lines": [
           null,
           null,
@@ -1109,7 +1109,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/application/forms/query.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/application/forms/query.rb": {
         "lines": [
           null,
           null,
@@ -1136,7 +1136,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/application/services/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/application/services/init.rb": {
         "lines": [
           null,
           null,
@@ -1145,7 +1145,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/application/services/analyze_skills.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/application/services/analyze_skills.rb": {
         "lines": [
           null,
           null,
@@ -1304,7 +1304,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/application/controllers/init.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/application/controllers/init.rb": {
         "lines": [
           null,
           null,
@@ -1313,7 +1313,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/app/application/controllers/app.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/app/application/controllers/app.rb": {
         "lines": [
           null,
           null,
@@ -1370,7 +1370,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/spec/helpers/database_helper.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/spec/helpers/database_helper.rb": {
         "lines": [
           null,
           null,
@@ -1388,7 +1388,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/spec/tests/integration/services/analyze_skills_spec.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/spec/tests/integration/services/analyze_skills_spec.rb": {
         "lines": [
           null,
           null,
@@ -1572,7 +1572,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/spec/tests/unit/freecurrency_spec.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/spec/tests/unit/freecurrency_spec.rb": {
         "lines": [
           null,
           null,
@@ -1661,7 +1661,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/spec/tests/unit/reed_spec.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/spec/tests/unit/reed_spec.rb": {
         "lines": [
           null,
           null,
@@ -1788,7 +1788,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/spec/tests/unit/skill_spec.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/spec/tests/unit/skill_spec.rb": {
         "lines": [
           null,
           null,
@@ -1860,7 +1860,7 @@
           null
         ]
       },
-      "/Users/joaw/workspace/SOA2021/s-killer/spec/tests/unit/view_objects_spec.rb": {
+      "/Users/joaw/workspace/SOA2021/s-killer/s-killer-monolith/spec/tests/unit/view_objects_spec.rb": {
         "lines": [
           null,
           null,
@@ -1992,6 +1992,6 @@
         ]
       }
     },
-    "timestamp": 1638438893
+    "timestamp": 1639114652
   }
 }

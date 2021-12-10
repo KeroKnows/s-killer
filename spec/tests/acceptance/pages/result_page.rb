@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# Page object for details page
-class DetailsPage
+# Page object for result page
+class ResultPage
   include PageObject
 
-  page_url "#{Skiller::App.config.APP_HOST}/details?query=<%=params[:query]%>"
+  page_url "#{Skiller::App.config.APP_HOST}/result?query=<%=params[:query]%>"
 
   div(:warning_message, id: 'flash_bar_danger')
   div(:success_message, id: 'flash_bar_success')
