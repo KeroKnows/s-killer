@@ -15,9 +15,9 @@ describe 'Test View Objects' do
 
   describe 'Test Job Object' do
     before do
-      salary = Skiller::Value::Salary.new(year_min: nil, year_max: nil, currency: nil)
-      @job = Skiller::Entity::Job.new(db_id: nil,
-                                      job_id: 0,
+      salary = Skiller::Value::Salary.new(year_min: 1.0, year_max: 100.0, currency: 'TWD')
+      @job = Skiller::Entity::Job.new(db_id: 1,
+                                      job_id: 1,
                                       title: 'JOB TITLE',
                                       description: '<h1>JOB TITLE</h1><p>description</p>',
                                       location: 'LOCATION',
@@ -28,8 +28,11 @@ describe 'Test View Objects' do
     end
 
     it 'HAPPY: should extract properties properly' do
+      _(@job_object.id).must_equal @job.db_id
       _(@job_object.title).must_equal @job.title
       _(@job_object.location).must_equal @job.location
+      _(@job_object.max_salary).must_equal "#{@job.salary.currency}$ #{@job.salary.year_max}"
+      _(@job_object.min_salary).must_equal "#{@job.salary.currency}$ #{@job.salary.year_min}"
     end
 
     it 'HAPPY: should parse description to pure text' do
@@ -53,7 +56,7 @@ describe 'Test View Objects' do
       _(skill_object.count).must_equal count
     end
 
-    it 'HAPPY: should return the relating jobs' do
+    it 'HAPPY: should return related jobs' do
       skip 'NOT IMPLEMENTED'
     end
   end
