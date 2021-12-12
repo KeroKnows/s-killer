@@ -10,7 +10,7 @@ end
 
 desc 'start the app with file chages watched'
 task :dev do
-  sh "rerun -c 'bundle exec rackup -p 4001' --ignore 'coverage/*' --ignore 'spec/*' --ignore '*.slim'"
+  sh "rerun -c 'bundle exec rackup -p 4000' --ignore 'coverage/*' --ignore 'spec/*' --ignore '*.slim'"
 end
 
 desc 'run all quality checks'
@@ -29,16 +29,16 @@ end
 
 desc 'Run all acceptance tests at once'
 task :spec_accept do
-  sh 'RACK_ENV=test rackup -o 127.0.0.1 -p 4001 &'
+  sh 'RACK_ENV=test rackup -o 127.0.0.1 -p 4000 &'
   sh 'rake test_acceptance'
 ensure
   # Close the server
   begin
-    sh 'pkill -f "127\.0\.0\.1:4001"'
-  rescue StandardError => _e
+    sh 'pkill -f "127\.0\.0\.1:4000"'
+  rescue _e
     printf "\n\033[31m"
     puts 'Failed'
-    puts 'Server not killed. please close it by yourself. (127.0.0.1:4001)'
+    puts 'Server not killed. please close it by yourself. (127.0.0.1:4000)'
     printf "\n\033[0m"
   end
 end

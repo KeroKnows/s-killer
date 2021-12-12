@@ -25,17 +25,6 @@ module Skiller
       def self.config
         Figaro.env
       end
-
-      configure :development, :test do
-        ENV['DATABASE_URL'] = "sqlite://#{config.DB_FILENAME}"
-      end
-
-      # Database Setup
-      DB = Sequel.connect(ENV['DATABASE_URL']) # rubocop:disable Lint/ConstantDefinitionInBlock
-      # :reek:UncommunicativeMethodName
-      def self.DB # rubocop:disable Naming/MethodName
-        DB
-      end
     end
 
     use Rack::Session::Cookie, secret: config.SESSION_SECRET
