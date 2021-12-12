@@ -3,12 +3,17 @@
 require_relative '../../helpers/vcr_helper'
 require_relative '../../spec_helper'
 
+# Fake Job entity
+Job = Struct.new(:title, :description, :location, :salary)
+# Fake Skill entity
+Skill = Struct.new(:name, :salary)
+# Fake Salary entity
+Salary = Struct.new(:year_min, :year_max, :currency)
+# Fake SalaryDistribution entity
+SalaryDistribution = Struct.new(:maximum, :minimum, :currency)
+
 describe 'Test View Objects' do
   Skiller::VcrHelper.setup_vcr
-  Job = Struct.new(:title, :description, :location, :salary)
-  Skill = Struct.new(:name, :salary)
-  Salary = Struct.new(:year_min, :year_max, :currency)
-  SalaryDistribution = Struct.new(:maximum, :minimum, :currency)
 
   before do
     Skiller::VcrHelper.configure_api
@@ -72,7 +77,7 @@ describe 'Test View Objects' do
     it 'HAPPY: should return the job object' do
       jobs = [
         Job.new('JOB1', '<h1>JOB1 TITLE</h1><p>description</p>', 'LOCATION'),
-        Job.new('JOB2', '<h1>JOB2 TITLE</h1><p>description</p>', 'LOCATION'),
+        Job.new('JOB2', '<h1>JOB2 TITLE</h1><p>description</p>', 'LOCATION')
       ]
       skilljob = Views::SkillJob.new(nil, jobs, nil, nil)
       skilljob.jobs.each do |job|

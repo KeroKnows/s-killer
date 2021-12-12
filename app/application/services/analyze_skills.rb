@@ -38,7 +38,7 @@ module Skiller
       # :reek:UncommunicativeVariableName for rescued error
       def reify_result(result_json)
         Representer::Result.new(OpenStruct.new).from_json(result_json)
-          .then { |result| Success(result) }
+                           .then { |result| Success(result) }
       rescue StandardError => e
         Failure("Fail to reify query result: #{e}")
       end
