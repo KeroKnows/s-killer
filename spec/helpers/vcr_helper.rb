@@ -11,9 +11,23 @@ module Skiller
 
     def self.setup_vcr
       VCR.configure do |config|
+        # ignore driver communicution during the acceptance test
+        config.ignore_request { |request| filter_request(request) }
         config.cassette_library_dir = CASSETTES_FOLDER
         config.hook_into :webmock
       end
+    end
+
+    def self.filter_request(request)
+      uri = URI(request.uri)
+      should_fail = (uri.host.include? '127.0.0.1')\
+                    && (uri.path.match? 'session')\
+                    && (request.headers['User-Agent'].any? { |ua| ua.include? 'watir' })
+      return true if should_fail
+
+      should_fail = (uri.host.include? '127.0.0.1')\
+                    && (uri.path.match? 'shutdown$')
+      should_fail
     end
 
     def self.configure_api
