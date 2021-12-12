@@ -17,8 +17,8 @@ module Skiller
       end
 
       # GET result from given query
-      def result(query)
-        @request.get_result(query)
+      def request_skillset(query)
+        @request.get_skillsets(query)
       end
 
       # HTTP request transmitter
@@ -32,7 +32,7 @@ module Skiller
           call_api('get')
         end
 
-        def get_result(query)
+        def get_skillsets(query)
           url = get_route(['jobs'], 'query' => query)
           call_api('get', url)
         end

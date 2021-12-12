@@ -28,7 +28,7 @@ module Skiller
       # Request result from Skiller::API
       # :reek:UncommunicativeVariableName for rescued error
       def retrieve_result(query)
-        result = Gateway::Api.new(App.config).result(query)
+        result = Gateway::Api.new(App.config).request_skillset(query)
         result.success? ? Success(result.payload) : Failure(result.message)
       rescue StandardError => e
         Failure("Fail to retrieve result: #{e}")
