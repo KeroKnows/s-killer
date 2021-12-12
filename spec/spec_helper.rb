@@ -16,9 +16,14 @@ require 'http'
 
 require_relative '../init'
 
+# ENVIRONMENTAL
 Figaro.application = Figaro::Application.new(
   environment: ENV,
   path: File.expand_path('config/secrets.yml')
 )
 Figaro.load
 CONFIG = Figaro.env
+
+# CONSTANTS
+TEST_KEYWORD = 'backend'
+EMPTY_KEYWORD = ' '
