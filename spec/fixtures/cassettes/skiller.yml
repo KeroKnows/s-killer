@@ -62,4 +62,53 @@ http_interactions:
       string: '{"status":"ok","message":"S-killer API v1 at /api/v1/ in development
         mode"}'
   recorded_at: Sun, 12 Dec 2021 10:25:01 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:4001/api/v1/details/1110
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - 127.0.0.1:4001
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Connection:
+      - close
+      Content-Length:
+      - '1699'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":1110,"title":"Backend Developer","description":"Backend Developer<br
+        />Brighton / London Remote<br />35-45k Package &#43; Excellent Benefits<br
+        /><br />Our client, a fast-growing company, focuses exclusively on delivering
+        world-class digital branding and marketing services to the property market.
+        Through embracing new technology, they develop first-class websites, mobile
+        sites, digital marketing and social  media engagement strategies. Their growing
+        portfolio of UK brands, utilise our client''s experience, knowledge and benchmarking
+        tools to provide a competitive edge. Through growth, they now have an exciting
+        opening for a Backend Developer.<br /><br />As a Backend Developer, you will
+        help our client scale up their development operations. To be successful in
+        this role, you will need the following skills and traits: <br /><br />* Top
+        OO programming skills<br />* Ruby / Ruby on Rails<br />* Front end applications
+        design (Python, PHP, JavaScript etc.)<br />* Open source development<br />*
+        RESTful web API''s<br />* BDD and TDD<br />* Mongo, MYSQL and NoSQL<br />*
+        Linux server administration<br /><br />The successful candidate will be eager
+        to learn and can expect a base salary circa 40k, plus a generous benefits
+        package and opportunities for career growth. <br /><br />The Certus Recruitment
+        Group is an established and experienced specialist consultancy providing sales,
+        marketing and IT recruitment services to the business community throughout
+        the UK, Europe, North America and Australia.","location":"London","salary":{"year_max":45000.0,"year_min":35000.0,"currency":"GBP"},"url":"https://www.reed.co.uk/jobs/backend-developer/44928092","links":[{"rel":"self","href":"/"}]}'
+  recorded_at: Sun, 12 Dec 2021 11:09:53 GMT
 recorded_with: VCR 6.0.0

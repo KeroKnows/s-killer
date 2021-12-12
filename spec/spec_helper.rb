@@ -27,3 +27,4 @@ CONFIG = Figaro.env
 # CONSTANTS
 TEST_KEYWORD = 'backend'
 EMPTY_KEYWORD = ' '
+TEST_JOB_ID = 1110
