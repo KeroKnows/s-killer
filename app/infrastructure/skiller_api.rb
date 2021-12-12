@@ -25,7 +25,7 @@ module Skiller
       class Request
         def initialize(config)
           @api_host = config.API_HOST
-          @api_root = "#{config.API_HOST}/api/v1"
+          @api_root = "#{@api_host}/api/v1"
         end
 
         def get_root # rubocop:disable Naming/AccessorMethodName
@@ -33,20 +33,20 @@ module Skiller
         end
 
         def get_result(query)
-          call_api('get', ['jobs'], 'query' => query)
+          url = get_route(['jobs'], 'query' => query)
+          call_api('get', url)
         end
 
         private
 
-        def params_str(params)
-          params.map { |key, value| "#{key}=#{value}" }.join('&')
-                .then { |str| str ? "?#{str}" : '' }
+        def get_route(resources = [], params = {})
+          api_path = resources.empty? ? @api_host : @api_root
+          params_str = Parameters.new(params).to_s
+          [api_path, resources].flatten.join('/') + params_str
         end
 
         # Send request to our api
-        def call_api(method, resources = [], params = {})
-          api_path = resources.empty? ? @api_host : @api_root
-          url = [api_path, resources].flatten.join('/') + params_str(params)
+        def call_api(method, url)
           HTTP.headers('Accept' => 'application/json').send(method, url)
               .then { |http_response| Response.new(http_response) }
         rescue StandardError
@@ -54,8 +54,22 @@ module Skiller
         end
       end
 
+      # Utitity class for handling HTTP parameters
+      class Parameters
+        def initialize(params)
+          @params = params
+        end
+
+        # transform parameter lists into a string
+        def to_s
+          @params.map { |key, value| "#{key}=#{value}" }.join('&')
+                 .then { |str| str ? "?#{str}" : '' }
+        end
+      end
+
       # Decorates HTTP responses with success/error
       class Response < SimpleDelegator
+        # Error for request failure
         NotFound = Class.new(StandardError)
 
         SUCCESS = (200..299)
