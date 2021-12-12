@@ -46,7 +46,8 @@ module Skiller
         end
 
         # Send request to our api
-        def call_api(method, url)
+        def call_api(method, url = nil)
+          url ||= @api_host
           HTTP.headers('Accept' => 'application/json').send(method, url)
               .then { |http_response| Response.new(http_response) }
         rescue StandardError
@@ -63,7 +64,7 @@ module Skiller
         # transform parameter lists into a string
         def to_s
           @params.map { |key, value| "#{key}=#{value}" }.join('&')
-                 .then { |str| str ? "?#{str}" : '' }
+                 .then { |str| str.empty? ? '' : "?#{str}" }
         end
       end
 
@@ -79,7 +80,8 @@ module Skiller
         end
 
         def message
-          payload['message']
+          response = JSON.parse payload
+          response['message']
         end
 
         def payload

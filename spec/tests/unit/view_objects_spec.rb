@@ -1,12 +1,22 @@
 # frozen_string_literal: true
 
+require_relative '../../helpers/vcr_helper'
 require_relative '../../spec_helper'
+
+# Fake Job entity
+Job = Struct.new(:title, :description, :location, :salary)
+# Fake Skill entity
+Skill = Struct.new(:name, :salary)
+# Fake Salary entity
+Salary = Struct.new(:year_min, :year_max, :currency)
+# Fake SalaryDistribution entity
+SalaryDistribution = Struct.new(:maximum, :minimum, :currency)
 
 describe 'Test View Objects' do
   Skiller::VcrHelper.setup_vcr
 
   before do
-    Skiller::VcrHelper.configure_currency
+    Skiller::VcrHelper.configure_api
   end
 
   after do
@@ -15,15 +25,7 @@ describe 'Test View Objects' do
 
   describe 'Test Job Object' do
     before do
-      salary = Skiller::Value::Salary.new(year_min: nil, year_max: nil, currency: nil)
-      @job = Skiller::Entity::Job.new(db_id: nil,
-                                      job_id: 0,
-                                      title: 'JOB TITLE',
-                                      description: '<h1>JOB TITLE</h1><p>description</p>',
-                                      location: 'LOCATION',
-                                      salary: salary,
-                                      url: 'URL',
-                                      is_full: true)
+      @job = Job.new('JOB TITLE', '<h1>JOB TITLE</h1><p>description</p>', 'LOCATION')
       @job_object = Views::Job.new(@job)
     end
 
@@ -43,10 +45,7 @@ describe 'Test View Objects' do
 
   describe 'Test Skill Object' do
     it 'HAPPY: should extract properties properly' do
-      skill = Skiller::Entity::Skill.new(id: nil,
-                                         job_db_id: nil,
-                                         name: 'Python',
-                                         salary: nil)
+      skill = Skill.new('Python')
       count = 10
       skill_object = Views::Skill.new(skill, count)
       _(skill_object.name).must_equal skill.name
@@ -60,11 +59,7 @@ describe 'Test View Objects' do
 
   describe 'Test SkillJob Object' do
     it 'HAPPY: should extract the skillset as skill object' do
-      salary = Skiller::Value::Salary.new(year_min: nil, year_max: nil, currency: nil)
-      skills = [
-        Skiller::Entity::Skill.new(id: nil, job_db_id: nil, name: 'AWS', salary: salary),
-        Skiller::Entity::Skill.new(id: nil, job_db_id: nil, name: 'Python', salary: salary)
-      ]
+      skills = [Skill.new('AWS'), Skill.new('Python')]
       skilljob = Views::SkillJob.new(nil, nil, skills, nil)
       skilljob.skills.each do |skill|
         _(skill).must_be_instance_of Views::Skill
@@ -72,41 +67,18 @@ describe 'Test View Objects' do
     end
 
     it 'HAPPY: should sort the skillset by count' do
-      salary = Skiller::Value::Salary.new(year_min: nil, year_max: nil, currency: nil)
-      skills = [
-        Skiller::Entity::Skill.new(id: nil, job_db_id: nil, name: 'AWS', salary: salary),
-        Skiller::Entity::Skill.new(id: nil, job_db_id: nil, name: 'Python', salary: salary),
-        Skiller::Entity::Skill.new(id: nil, job_db_id: nil, name: 'AWS', salary: salary),
-        Skiller::Entity::Skill.new(id: nil, job_db_id: nil, name: 'Python', salary: salary),
-        Skiller::Entity::Skill.new(id: nil, job_db_id: nil, name: 'JavaScript', salary: salary),
-        Skiller::Entity::Skill.new(id: nil, job_db_id: nil, name: 'Python', salary: salary),
-        Skiller::Entity::Skill.new(id: nil, job_db_id: nil, name: 'JavaScript', salary: salary),
-        Skiller::Entity::Skill.new(id: nil, job_db_id: nil, name: 'JavaScript', salary: salary)
-      ]
+      skill_names = %w[AWS Python AWS Python JavaScript Python JavaScript JavaScript]
+      skills = skill_names.map { |name| Skill.new(name) }
       skilljob = Views::SkillJob.new(nil, nil, skills, nil)
       count = skilljob.skills.map(&:count)
       _(count).must_equal count.sort.reverse!
     end
 
     it 'HAPPY: should return the job object' do
-      salary = Skiller::Value::Salary.new(year_min: nil, year_max: nil, currency: nil)
-      jobs = [Skiller::Entity::Job.new(db_id: nil,
-                                       job_id: 0,
-                                       title: 'JOB1 TITLE',
-                                       description: '<h1>JOB1 TITLE</h1><p>description</p>',
-                                       location: 'LOCATION',
-                                       salary: salary,
-                                       url: 'URL',
-                                       is_full: true),
-              Skiller::Entity::Job.new(db_id: nil,
-                                       job_id: 1,
-                                       title: 'JOB2 TITLE',
-                                       description: '<h1>JOB2 TITLE</h1><p>description</p>',
-                                       location: 'LOCATION',
-                                       salary: salary,
-                                       url: 'URL',
-                                       is_full: true)]
-
+      jobs = [
+        Job.new('JOB1', '<h1>JOB1 TITLE</h1><p>description</p>', 'LOCATION'),
+        Job.new('JOB2', '<h1>JOB2 TITLE</h1><p>description</p>', 'LOCATION')
+      ]
       skilljob = Views::SkillJob.new(nil, jobs, nil, nil)
       skilljob.jobs.each do |job|
         _(job).must_be_instance_of Views::Job
@@ -114,14 +86,13 @@ describe 'Test View Objects' do
     end
 
     it 'HAPPY: should correctly calculate the max/min salary' do
-      max_salary = Skiller::Value::Salary.new(year_min: 10.0, year_max: 1000.0, currency: 'USD')
-      min_salary = Skiller::Value::Salary.new(year_min: 1.0, year_max: 100.0, currency: 'USD')
-      nil_salary = Skiller::Value::Salary.new(year_min: nil, year_max: nil, currency: nil)
-      salaries = [max_salary, min_salary, nil_salary]
-      salary_distribution = Skiller::Entity::SalaryDistribution.new(salaries, 'TWD')
+      max_salary = 10_000
+      min_salary = 10
+      salary_distribution = SalaryDistribution.new(max_salary, min_salary, 'TWD')
+
       skilljob = Views::SkillJob.new(nil, nil, nil, salary_distribution)
-      _(skilljob.max_salary).must_equal "TWD$ #{max_salary.exchange_currency('TWD').year_max.to_i}"
-      _(skilljob.min_salary).must_equal "TWD$ #{min_salary.exchange_currency('TWD').year_min.to_i}"
+      _(skilljob.max_salary).must_equal "TWD$ #{max_salary}"
+      _(skilljob.min_salary).must_equal "TWD$ #{min_salary}"
     end
   end
 end
