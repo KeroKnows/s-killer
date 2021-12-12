@@ -79,7 +79,8 @@ module Skiller
         end
 
         def message
-          payload['message']
+          response = JSON.parse payload
+          response['message']
         end
 
         def payload
