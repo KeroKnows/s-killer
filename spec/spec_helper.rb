@@ -16,17 +16,14 @@ require 'http'
 
 require_relative '../init'
 
-TEST_KEYWORD = 'backend'
-TEST_SRC_CURRENCY = 'TWD'
-TEST_TGT_CURRENCY = 'USD'
-
+# ENVIRONMENTAL
 Figaro.application = Figaro::Application.new(
   environment: ENV,
   path: File.expand_path('config/secrets.yml')
 )
 Figaro.load
 CONFIG = Figaro.env
-REED_TOKEN = CONFIG.REED_TOKEN
-CREDENTIALS = Base64.strict_encode64("#{REED_TOKEN}:")
 
-FREECURRENCY_API_KEY = CONFIG.FREECURRENCY_API_KEY
+# CONSTANTS
+TEST_KEYWORD = 'backend'
+EMPTY_KEYWORD = ' '
