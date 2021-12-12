@@ -21,6 +21,11 @@ module Skiller
         @request.get_skillsets(query)
       end
 
+      # GET detail from given job id
+      def request_detail(job_id)
+        @request.get_job_detail(job_id)
+      end
+
       # HTTP request transmitter
       class Request
         def initialize(config)
@@ -34,6 +39,11 @@ module Skiller
 
         def get_skillsets(query)
           url = get_route(['jobs'], 'query' => query)
+          call_api('get', url)
+        end
+
+        def get_job_detail(job_id)
+          url = get_route(['details', job_id.to_s])
           call_api('get', url)
         end
 
