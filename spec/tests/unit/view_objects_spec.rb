@@ -4,7 +4,7 @@ require_relative '../../helpers/vcr_helper'
 require_relative '../../spec_helper'
 
 # Fake Job entity
-Job = Struct.new(:title, :description, :location, :salary)
+Job = Struct.new(:title, :description, :location, :salary, :db_id)
 # Fake Skill entity
 Skill = Struct.new(:name, :salary)
 # Fake Salary entity
@@ -25,7 +25,8 @@ describe 'Test View Objects' do
 
   describe 'Test Job Object' do
     before do
-      @job = Job.new('JOB TITLE', '<h1>JOB TITLE</h1><p>description</p>', 'LOCATION')
+      salary = Salary.new(10.0, 1000.0, 'TWD')
+      @job = Job.new('JOB TITLE', '<h1>JOB TITLE</h1><p>description</p>', 'LOCATION', salary, 1)
       @job_object = Views::Job.new(@job)
     end
 
