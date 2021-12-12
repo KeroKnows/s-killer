@@ -4,7 +4,7 @@
 class ResultPage
   include PageObject
 
-  page_url "#{Skiller::App.config.APP_HOST}/result?query=<%=params[:query]%>"
+  page_url "#{Skiller::App.config.TEST_HOST}/result?query=<%=params[:query]%>"
 
   div(:warning_message, id: 'flash-bar-danger')
   div(:success_message, id: 'flash-bar-success')
