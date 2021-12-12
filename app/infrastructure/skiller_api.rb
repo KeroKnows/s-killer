@@ -52,7 +52,8 @@ module Skiller
         def get_route(resources = [], params = {})
           api_path = resources.empty? ? @api_host : @api_root
           params_str = Parameters.new(params).to_s
-          [api_path, resources].flatten.join('/') + params_str
+          url = [api_path, resources].flatten.join('/') + params_str
+          URI.parse(url).to_s
         end
 
         # Send request to our api
