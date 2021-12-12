@@ -4,7 +4,9 @@ source 'https://rubygems.org'
 ruby File.read('.ruby-version').strip
 
 # Developing tools
-gem 'pry', '~> 0.13.1'
+group :development do
+  gem 'pry', '~> 0.13.1'
+end
 
 # Web App
 gem 'figaro', '~> 1.2'
@@ -12,24 +14,12 @@ gem 'puma', '~> 5.5'
 gem 'roda', '~> 3.49'
 gem 'slim', '~> 4.1'
 
-# Database
-gem 'hirb', '~> 0'
-gem 'hirb-unicode', '~> 0'
-gem 'sequel', '~> 5.5'
-
-group :development, :test do
-  gem 'sqlite3', '~> 1.4'
-end
-
-# Production
-group :production do
-  gem 'pg'
-end
+# Representing
+gem 'multi_json', '~> 1.15'
+gem 'roar', '~> 1.1'
 
 # Validation
-gem 'dry-struct', '~> 1.4'
 gem 'dry-transaction', '~> 0.13'
-gem 'dry-types', '~> 1.5'
 gem 'dry-validation', '~> 1.7'
 
 # Networking
@@ -61,6 +51,8 @@ end
 gem 'nokogiri', '~> 1.12'
 
 # Code Quality
-gem 'flog'
-gem 'reek'
-gem 'rubocop'
+group :development do
+  gem 'flog'
+  gem 'reek'
+  gem 'rubocop'
+end

@@ -1,9 +1,9 @@
 - if flash[:error].nil?
 - else
-  div class="alert alert-danger" id="flash_bar_danger" = flash[:error]
+  div.alert.alert-danger id="flash-bar-danger" = flash[:error]
   end
 
 - if flash[:notice].nil?
 - else
-  div class="alert alert-success" id="flash_bar_success" = flash[:notice]
+  div.alert.alert-success id="flash-bar-success" = flash[:notice]
   end

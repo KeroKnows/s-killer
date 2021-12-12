@@ -7,7 +7,12 @@ module Views
   class Job
     def initialize(job)
       @job = job
+      @salary = job.salary
       @description = nil
+    end
+
+    def id
+      @job.db_id
     end
 
     def title
@@ -25,6 +30,14 @@ module Views
     def description
       parse_description
       @description
+    end
+
+    def max_salary
+      "#{@salary.currency}$ #{@salary.year_max}"
+    end
+
+    def min_salary
+      "#{@salary.currency}$ #{@salary.year_min}"
     end
 
     # UTILITIES

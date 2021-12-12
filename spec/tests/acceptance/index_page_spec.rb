@@ -1,28 +1,29 @@
 # frozen_string_literal: true
 
-# require 'minitest/autorun'
 require_relative '../../helpers/acceptance_helper'
+require_relative '../../helpers/vcr_helper'
 require_relative 'pages/index_page'
 
 describe 'Indexpage Acceptance Tests' do
   include PageObject::PageFactory
+  Skiller::VcrHelper.setup_vcr
 
   before do
+    Skiller::VcrHelper.configure_api
     @browser ||= Watir::Browser.new :chrome, headless: true
   end
 
   after do
     @browser.close
+    Skiller::VcrHelper.eject_vcr
   end
 
-  index_url = CONFIG.APP_HOST
-  valid_request = 'frontend engineer'
-  invalid_request = 'asdf'
-  valid_request_url = valid_request.sub(' ', '+')
+  index_url = CONFIG.TEST_HOST
+  valid_request_url = TEST_KEYWORD.sub(' ', '+')
 
-  valid_query_notice = "Your last query is '#{valid_request}'"
-  empty_query_warning = 'invalid query'
-  empty_job_warning = 'no job is found'
+  valid_query_notice = 'last query is'
+  invalid_query_warning = 'invalid'
+  empty_result_warning = 'no job found'
 
   describe 'Visit Index Page' do
     it '(HAPPY) should present an input box and a submit button' do
@@ -39,7 +40,7 @@ describe 'Indexpage Acceptance Tests' do
       # Given: index page
       visit IndexPage do |page|
         # Input a valid request
-        page.query_job(valid_request)
+        page.query_job(TEST_KEYWORD)
 
         # Then: user jumps to the correct details url
         @browser.url.include? valid_request_url
@@ -49,7 +50,7 @@ describe 'Indexpage Acceptance Tests' do
 
         # Then: user sees flash bar
         _(page.success_message_element.present?).must_equal true
-        _(page.success_message_element.text).must_match valid_query_notice
+        _(page.success_message_element.text.downcase).must_match valid_query_notice
       end
     end
 
@@ -58,14 +59,14 @@ describe 'Indexpage Acceptance Tests' do
       visit IndexPage do |page|
         # When: user wants to send an invalid request
         # Input an invalid request
-        page.query_job(invalid_request)
+        page.query_job(INVALID_KEYWORD)
 
         # Then: user jumps back to index url
         _(@browser.url).must_match index_url
 
         # Then: user sees flash bar
         _(page.warning_message_element.present?).must_equal true
-        _(page.warning_message_element.text.downcase).must_include empty_job_warning
+        _(page.warning_message_element.text.downcase).must_include invalid_query_warning
       end
     end
 
@@ -80,7 +81,23 @@ describe 'Indexpage Acceptance Tests' do
 
         # Then: user sees flash bar
         _(page.warning_message_element.present?).must_equal true
-        _(page.warning_message_element.text.downcase).must_match empty_query_warning
+        _(page.warning_message_element.text.downcase).must_match invalid_query_warning
+      end
+    end
+
+    it '(SAD) should not be able to request an non-available query' do
+      # Given: index page
+      visit IndexPage do |page|
+        # When: user wants to send an invalid request
+        # Input an invalid request
+        page.query_job(EMPTY_RESULT_KEYWORD)
+
+        # Then: user jumps back to index url
+        _(@browser.url).must_match index_url
+
+        # Then: user sees flash bar
+        _(page.warning_message_element.present?).must_equal true
+        _(page.warning_message_element.text.downcase).must_include empty_result_warning
       end
     end
   end

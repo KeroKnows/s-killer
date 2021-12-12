@@ -26,8 +26,25 @@ module Skiller
         end
       end
 
-      # GET /details
-      router.on 'details' do
+      # GET /detail/{JOB_ID}
+      router.on 'detail' do
+        router.on Integer do |job_id|
+          job_info = Service::RequestDetail.new.call(job_id)
+
+          if job_info.failure?
+            flash[:error] = job_info.failure
+            router.redirect '/'
+          end
+
+          job_info = job_info.value!
+          job = Views::Job.new(job_info)
+
+          view 'detail', locals: { job: job }
+        end
+      end
+
+      # GET /result
+      router.on 'result' do
         router.is do
           router.post do
             query_form = Forms::Query.new.call(router.params)
@@ -44,7 +61,7 @@ module Skiller
             )
 
             flash[:notice] = "Your last query is '#{skillset.query}'"
-            view 'details', locals: { skillset: skillset }
+            view 'result', locals: { skillset: skillset }
           end
         end
       end

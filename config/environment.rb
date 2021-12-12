@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-# https://github.com/laserlemon/figaro
-
 require 'roda'
 require 'yaml'
 require 'figaro'
-require 'sequel'
 require 'delegate'
 
 module Skiller
@@ -24,17 +21,6 @@ module Skiller
       # Make the environment variables accessible
       def self.config
         Figaro.env
-      end
-
-      configure :development, :test do
-        ENV['DATABASE_URL'] = "sqlite://#{config.DB_FILENAME}"
-      end
-
-      # Database Setup
-      DB = Sequel.connect(ENV['DATABASE_URL']) # rubocop:disable Lint/ConstantDefinitionInBlock
-      # :reek:UncommunicativeMethodName
-      def self.DB # rubocop:disable Naming/MethodName
-        DB
       end
     end
 
