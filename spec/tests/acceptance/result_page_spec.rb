@@ -11,7 +11,7 @@ describe 'Result Page Acceptance Tests' do
   Skiller::VcrHelper.setup_vcr
 
   before do
-    Skiller::VcrHelper.configure_integration
+    Skiller::VcrHelper.configure_api
     @browser ||= Watir::Browser.new :chrome, headless: true
   end
 
@@ -20,8 +20,8 @@ describe 'Result Page Acceptance Tests' do
     Skiller::VcrHelper.eject_vcr
   end
 
-  index_url = CONFIG.APP_HOST
-  result_url = "#{CONFIG.APP_HOST}/result"
+  index_url = CONFIG.TEST_HOST
+  result_url = "#{CONFIG.TEST_HOST}/result"
 
   it '(HAPPY) should be able to read query results' do
     # GIVEN: user searches a query
