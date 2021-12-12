@@ -26,13 +26,13 @@ describe 'Test Skiller Gateway' do
     end
 
     it 'HAPPY: should be able to combine single parameter' do
-      param = {'key': 'value'}
+      param = { key: 'value' }
       _(Skiller::Gateway::Api::Parameters.new(param).to_s).must_equal '?key=value'
     end
 
     it 'HAPPY: should be able to combine multiple parameters' do
       # multiple keys
-      params = {'key1': 'value1', 'key2': 'value2'}
+      params = { key1: 'value1', key2: 'value2' }
       _(Skiller::Gateway::Api::Parameters.new(params).to_s).must_equal '?key1=value1&key2=value2'
     end
   end
