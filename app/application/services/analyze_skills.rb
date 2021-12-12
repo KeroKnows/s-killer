@@ -17,8 +17,9 @@ module Skiller
 
       # Check if the previous form validation passes
       def validate_request(input)
+        query = input[:query]
         if input.success?
-          Success(input[:query])
+          Success(query)
         else
           Failure("Invalid query: '#{query}'")
         end
