@@ -62,4 +62,34 @@ http_interactions:
       string: '{"status":"ok","message":"S-killer API v1 at /api/v1/ in development
         mode"}'
   recorded_at: Sun, 12 Dec 2021 09:05:31 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:4001/api/v1/jobs
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - 127.0.0.1:4001
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      Content-Type:
+      - application/json
+      Connection:
+      - close
+      Content-Length:
+      - '55'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"cannot_process","message":"Invalid query: "}'
+  recorded_at: Sun, 12 Dec 2021 09:32:04 GMT
 recorded_with: VCR 6.0.0
