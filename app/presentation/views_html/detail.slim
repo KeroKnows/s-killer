@@ -1,0 +1,18 @@
+.container
+  h1 id="job-title"
+    = job.title
+
+  .container.p-4.m-3.bg-light.rounded-3 id="job-meta-box"
+    p.fw-bold Location
+    p.ms-3 
+      i.fas.fa-map-marker-alt.mx-1
+      =< job.location
+    p.fw-bold Salary
+    p.ms-3
+      i.fas.fa-search-dollar
+      =< "#{job.min_salary} ~ #{job.max_salary}"
+
+  .container.p-4.m-3.bg-light.rounded-3 id="job-info-box"
+    h3 Job Description
+    .p-3
+      p = job.description

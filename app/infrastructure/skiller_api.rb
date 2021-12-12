@@ -17,8 +17,13 @@ module Skiller
       end
 
       # GET result from given query
-      def result(query)
-        @request.get_result(query)
+      def request_skillset(query)
+        @request.get_skillsets(query)
+      end
+
+      # GET detail from given job id
+      def request_detail(job_id)
+        @request.get_job_detail(job_id)
       end
 
       # HTTP request transmitter
@@ -32,8 +37,13 @@ module Skiller
           call_api('get')
         end
 
-        def get_result(query)
+        def get_skillsets(query)
           url = get_route(['jobs'], 'query' => query)
+          call_api('get', url)
+        end
+
+        def get_job_detail(job_id)
+          url = get_route(['details', job_id.to_s])
           call_api('get', url)
         end
 
@@ -42,7 +52,8 @@ module Skiller
         def get_route(resources = [], params = {})
           api_path = resources.empty? ? @api_host : @api_root
           params_str = Parameters.new(params).to_s
-          [api_path, resources].flatten.join('/') + params_str
+          url = [api_path, resources].flatten.join('/') + params_str
+          URI.parse(url).to_s
         end
 
         # Send request to our api

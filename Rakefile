@@ -29,14 +29,17 @@ end
 
 desc 'Run all acceptance tests at once'
 task :spec_accept do
-  sh 'RACK_ENV=test rackup -o 127.0.0.1 -p 4000 &'
-  sh 'rake test_acceptance'
+  puts '[ INFO ] Running testing server on 127.0.0.1:4010'
+  sh 'RACK_ENV=test rackup -o 127.0.0.1 -p 4010 &'
+  sh 'bundle exec rake test_acceptance'
+ensure
+  # Close the server
   begin
-    sh 'pkill -f "127\.0\.0\.1:4000"'
-  rescue _e
+    sh 'pkill -f "127\.0\.0\.1:4010"'
+  rescue StandardError => _e
     printf "\n\033[31m"
     puts 'Failed'
-    puts 'Server not killed. please close it by yourself. (127.0.0.1:4000)'
+    puts 'Server not killed. please close it by yourself. (127.0.0.1:4010)'
     printf "\n\033[0m"
   end
 end

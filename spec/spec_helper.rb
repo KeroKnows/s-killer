@@ -25,5 +25,8 @@ Figaro.load
 CONFIG = Figaro.env
 
 # CONSTANTS
-TEST_KEYWORD = 'backend'
+TEST_KEYWORD = 'backend engineer'
+INVALID_KEYWORD = '0000'
 EMPTY_KEYWORD = ' '
+EMPTY_RESULT_KEYWORD = 'asdf'
+TEST_JOB_ID = 1110

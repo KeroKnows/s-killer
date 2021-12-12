@@ -9,11 +9,27 @@ module Skiller
     CASSETTES_FOLDER = 'spec/fixtures/cassettes'
     SKILLER_API_CASSETTE = 'skiller'
 
+    # :reek:NestedIterators { max_allowed_nesting: 2 } for VCR configuration
     def self.setup_vcr
       VCR.configure do |config|
+        # ignore driver communicution during the acceptance test
+        config.ignore_request { |request| filter_request(request) }
         config.cassette_library_dir = CASSETTES_FOLDER
         config.hook_into :webmock
       end
+    end
+
+    def self.filter_request(request)
+      uri = URI(request.uri)
+      return false if uri.host.include? '127.0.0.1'
+
+      path = uri.path
+      should_fail = (path.match? 'session')\
+                    && (request.headers['User-Agent'].any? { |ua| ua.include? 'watir' })
+      return true if should_fail
+
+      should_fail = (path.match? 'shutdown$')
+      should_fail ? true : false
     end
 
     def self.configure_api

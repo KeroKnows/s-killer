@@ -3,15 +3,15 @@
 require_relative '../../helpers/acceptance_helper'
 
 require_relative 'pages/index_page'
-require_relative 'pages/details_page'
+require_relative 'pages/result_page'
 
-describe 'Details Page Acceptance Tests' do
+describe 'Result Page Acceptance Tests' do
   include PageObject::PageFactory
 
   Skiller::VcrHelper.setup_vcr
 
   before do
-    Skiller::VcrHelper.configure_integration
+    Skiller::VcrHelper.configure_api
     @browser ||= Watir::Browser.new :chrome, headless: true
   end
 
@@ -20,19 +20,19 @@ describe 'Details Page Acceptance Tests' do
     Skiller::VcrHelper.eject_vcr
   end
 
-  index_url = CONFIG.APP_HOST
-  details_url = "#{CONFIG.APP_HOST}/details"
+  index_url = CONFIG.TEST_HOST
+  result_url = "#{CONFIG.TEST_HOST}/result"
 
-  it '(HAPPY) should be able to read job details' do
+  it '(HAPPY) should be able to read query results' do
     # GIVEN: user searches a query
     visit(IndexPage) do |page|
       page.query_job(TEST_KEYWORD)
     end
 
     # WHEN: jumping to the detail page
-    on_page(DetailsPage) do |page|
+    on_page(ResultPage) do |page|
       # THEN: the url should be correct...
-      _(@browser.url).must_match details_url
+      _(@browser.url).must_match result_url
 
       # ...and all elements should be shown properly
       _(page.title_element.present?).must_equal true
@@ -54,7 +54,7 @@ describe 'Details Page Acceptance Tests' do
       page.query_job(TEST_KEYWORD)
     end
 
-    on_page(DetailsPage) do |page|
+    on_page(ResultPage) do |page|
       # WHEN: user try to return to index page
       page.return_to_index
 

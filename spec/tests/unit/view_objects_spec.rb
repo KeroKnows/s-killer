@@ -4,7 +4,7 @@ require_relative '../../helpers/vcr_helper'
 require_relative '../../spec_helper'
 
 # Fake Job entity
-Job = Struct.new(:title, :description, :location, :salary)
+Job = Struct.new(:title, :description, :location, :salary, :db_id)
 # Fake Skill entity
 Skill = Struct.new(:name, :salary)
 # Fake Salary entity
@@ -25,13 +25,17 @@ describe 'Test View Objects' do
 
   describe 'Test Job Object' do
     before do
-      @job = Job.new('JOB TITLE', '<h1>JOB TITLE</h1><p>description</p>', 'LOCATION')
+      salary = Salary.new(10.0, 1000.0, 'TWD')
+      @job = Job.new('JOB TITLE', '<h1>JOB TITLE</h1><p>description</p>', 'LOCATION', salary, 1)
       @job_object = Views::Job.new(@job)
     end
 
     it 'HAPPY: should extract properties properly' do
+      _(@job_object.id).must_equal @job.db_id
       _(@job_object.title).must_equal @job.title
       _(@job_object.location).must_equal @job.location
+      _(@job_object.max_salary).must_equal "#{@job.salary.currency}$ #{@job.salary.year_max}"
+      _(@job_object.min_salary).must_equal "#{@job.salary.currency}$ #{@job.salary.year_min}"
     end
 
     it 'HAPPY: should parse description to pure text' do
@@ -52,7 +56,7 @@ describe 'Test View Objects' do
       _(skill_object.count).must_equal count
     end
 
-    it 'HAPPY: should return the relating jobs' do
+    it 'HAPPY: should return related jobs' do
       skip 'NOT IMPLEMENTED'
     end
   end

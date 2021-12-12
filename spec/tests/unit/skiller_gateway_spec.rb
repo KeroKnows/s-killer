@@ -55,7 +55,7 @@ describe 'Test Skiller Gateway' do
 
     it 'HAPPY: should be able to request the result' do
       api = Skiller::Gateway::Api.new(CONFIG)
-      result = api.result(TEST_KEYWORD)
+      result = api.request_skillset(TEST_KEYWORD)
 
       _(result).must_be_instance_of Skiller::Gateway::Api::Response
       _(result).must_respond_to :payload
