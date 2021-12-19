@@ -111,4 +111,40 @@ http_interactions:
         marketing and IT recruitment services to the business community throughout
         the UK, Europe, North America and Australia.","location":"London","salary":{"year_max":45000.0,"year_min":35000.0,"currency":"GBP"},"url":"https://www.reed.co.uk/jobs/backend-developer/44928092","links":[{"rel":"self","href":"/"}]}'
   recorded_at: Sun, 12 Dec 2021 12:54:54 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:4001/api/v1/jobs?query=frontend%20engineer
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Connection:
+      - close
+      Host:
+      - 127.0.0.1:4001
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      Content-Type:
+      - application/json
+      Cache-Control:
+      - public, max-age=86400
+      Date:
+      - Sun, 19 Dec 2021 15:20:54 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - close
+      Content-Length:
+      - '69'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"processing","message":"Processing the extraction request"}'
+  recorded_at: Sun, 19 Dec 2021 15:20:54 GMT
 recorded_with: VCR 6.0.0

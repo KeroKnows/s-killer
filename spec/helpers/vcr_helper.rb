@@ -21,7 +21,7 @@ module Skiller
 
     def self.filter_request(request)
       uri = URI(request.uri)
-      return false if uri.host.include? '127.0.0.1'
+      return false unless uri.host.include? '127.0.0.1'
 
       path = uri.path
       should_fail = (path.match? 'session')\

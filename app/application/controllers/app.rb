@@ -43,9 +43,9 @@ module Skiller
         end
       end
 
-      # GET /result
       router.on 'result' do
         router.is do
+          # POST /result
           router.post do
             query_form = Forms::Query.new.call(router.params)
             skill_analysis = Service::AnalyzeSkills.new.call(query_form)
@@ -55,7 +55,13 @@ module Skiller
               router.redirect '/'
             end
 
-            jobskill = skill_analysis.value!
+            skill_analysis = skill_analysis.value!
+            if skill_analysis[:response].processing?
+              flash[:notice] = 'Skillset is being analyzed now. Please request again after awhile'
+              router.redirect "/?query=#{skill_analysis[:query]}"
+            end
+
+            jobskill = skill_analysis[:result]
             skillset = Views::SkillJob.new(
               jobskill[:query], jobskill[:jobs], jobskill[:skills], jobskill[:salary_dist]
             )

@@ -26,18 +26,33 @@ describe 'Integration Test for AnalyzeSkills Service' do
     _(jobskill.failure.downcase).must_include 'invalid'
   end
 
+  it 'HAPPY: should search unseen query and get processing status' do
+    # GIVEN: a valid, non-existing query
+    query_form = Skiller::Forms::Query.new.call(query: NEW_KEYWORD)
+
+    # WHEN: the service is called
+    skill_analysis = Skiller::Service::AnalyzeSkills.new.call(query_form)
+
+    # THEN: the service should succeed...
+    _(skill_analysis.success?).must_equal true
+
+    # ... and shoule indicate itself being analyzed
+    skill_analysis = skill_analysis.value!
+    _(skill_analysis[:response].processing?).must_equal true
+  end
+
   it 'HAPPY: should search healthy query and get result' do
-    # GIVEN: a valid query
+    # GIVEN: a valid, existing query
     query_form = Skiller::Forms::Query.new.call(query: TEST_KEYWORD)
 
     # WHEN: the service is called
-    jobskill = Skiller::Service::AnalyzeSkills.new.call(query_form)
+    skill_analysis = Skiller::Service::AnalyzeSkills.new.call(query_form)
 
     # THEN: the service should succeed...
-    _(jobskill.success?).must_equal true
+    _(skill_analysis.success?).must_equal true
 
     # ... and get correct data
-    jobskill = jobskill.value!
+    jobskill = skill_analysis.value![:result]
     _(jobskill).must_respond_to :query
     _(jobskill).must_respond_to :jobs
     _(jobskill).must_respond_to :skills
