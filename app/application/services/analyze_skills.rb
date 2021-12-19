@@ -19,7 +19,7 @@ module Skiller
       def validate_request(input)
         query = input[:query]
         if input.success?
-          Success(query)
+          Success(query: query)
         else
           Failure("Invalid query: '#{query}'")
         end
@@ -27,18 +27,25 @@ module Skiller
 
       # Request result from Skiller::API
       # :reek:UncommunicativeVariableName for rescued error
-      def retrieve_result(query)
-        result = Gateway::Api.new(App.config).request_skillset(query)
-        result.success? ? Success(result.payload) : Failure(result.message)
+      def retrieve_result(input)
+        response = Gateway::Api.new(App.config).request_skillset(input[:query])
+        return Failure(response.message) unless response.success?
+
+        input[:response] = response
+        Success(input)
       rescue StandardError => e
         Failure("Fail to retrieve result: #{e}")
       end
 
       # Transform result back to a representer
       # :reek:UncommunicativeVariableName for rescued error
-      def reify_result(result_json)
-        Representer::Result.new(OpenStruct.new).from_json(result_json)
-                           .then { |result| Success(result) }
+      def reify_result(input)
+        response = input[:response]
+        if response.ok?
+          input[:result] = Representer::Result.new(OpenStruct.new)
+                                              .from_json(response.payload)
+        end
+        Success(input)
       rescue StandardError => e
         Failure("Fail to reify query result: #{e}")
       end

@@ -90,6 +90,14 @@ module Skiller
           code.between?(SUCCESS.first, SUCCESS.last)
         end
 
+        def ok?
+          code == 200
+        end
+
+        def processing?
+          code == 202
+        end
+
         def message
           response = JSON.parse payload
           response['message']
