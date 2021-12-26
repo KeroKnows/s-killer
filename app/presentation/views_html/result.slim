@@ -9,13 +9,19 @@
       var client = new Faye.Client("#{process.server_route}");
       var block = document.getElementsByClassName("reactive-info")[0];
       var cnt = 0;
+      const reload = () => {
+        form = new DOMParser().parseFromString("<form action='/result' method='POST' name='request' style='display: hidden;'><input name='query' value='#{process.query}'></input></form>",
+                                               'text/html').body.firstChild;
+        document.body.appendChild(form).submit();
+      }
       client.subscribe('/' + channel, function(message) {
-        console.log(message)
+        console.debug(`Get socket: ${message}`)
         if(message) {
-          block.innerHTML = `Analyzing ${message}...`;
           cnt += 1;
-          if(cnt >= 9) {
-            block.innerHTML = "Done"
+          block.innerHTML = `Finished analyzing job #${cnt}: ${message}.`;
+          if(cnt >= 5) {
+            block.innerHTML = "Done";
+            setTimeout(reload, 1500);
           }
         } else {
           block.innerHTML = "Empty"

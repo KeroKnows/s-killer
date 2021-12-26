@@ -68,7 +68,7 @@ module Skiller
               # response.expires(60, public: true) if App.environment == :production
             end
 
-            process_info = Views::AnalyzeProcess.new(App.config, response)
+            process_info = Views::AnalyzeProcess.new(App.config, skill_analysis[:query], response)
 
             view 'result', locals: { skillset: skillset,
                                      process: process_info }

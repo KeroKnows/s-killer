@@ -3,10 +3,13 @@
 module Views
   # A view object that holds all data about job
   class AnalyzeProcess
-    def initialize(config, response)
+    def initialize(config, query, response)
       @config = config
+      @query = query
       @response = response
     end
+
+    attr_reader :query
 
     def in_progress?
       @response.processing?
