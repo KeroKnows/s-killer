@@ -24,11 +24,11 @@ module Views
     end
 
     def javascript_url
-      @config.API_HOST + '/faye/faye.js' if in_progress?
+      "#{@config.API_HOST}/faye/faye.js"
     end
 
     def server_route
-      @config.API_HOST + '/faye/faye' if in_progress?
+      "#{@config.API_HOST}/faye/faye"
     end
   end
 end

@@ -13,6 +13,17 @@ Skill = Struct.new(:name, :salary)
 Salary = Struct.new(:year_min, :year_max, :currency)
 # Fake SalaryDistribution entity
 SalaryDistribution = Struct.new(:maximum, :minimum, :currency)
+# Fake API response
+# rubocop:disable Style/SingleLineMethods, Layout/EmptyLinesAroundAttributeAccessor for quick utility definition
+class Response
+  def initialize(processing, message)
+    @processing = processing
+    @message = message
+  end
+  attr_reader :message
+  def processing?; @processing; end
+end
+# rubocop:enable Style/SingleLineMethods, Layout/EmptyLinesAroundAttributeAccessor
 
 describe 'Test View Objects' do
   Skiller::VcrHelper.setup_vcr
@@ -104,44 +115,27 @@ describe 'Test View Objects' do
 
   describe 'Test AnalyzeProcess Object' do
     it 'HAPPY: should correctly decide if the result is still under processing' do
-      # Fake API response
-      class Response
-        def processing?; true; end
-        def message; ProcessMessage.new(10, 10); end
-      end
-      process = Views::AnalyzeProcess.new(Skiller::App.config, nil, Response.new)
+      response = Response.new(true, nil)
+      process = Views::AnalyzeProcess.new(Skiller::App.config, nil, response)
       _(process.in_progress?).must_equal true
 
-      # Fake API response
-      class Response
-        def processing?; false; end
-        def message; ProcessMessage.new(10, 10); end
-      end
-      process = Views::AnalyzeProcess.new(Skiller::App.config, nil, Response.new)
+      response = Response.new(false, nil)
+      process = Views::AnalyzeProcess.new(Skiller::App.config, nil, response)
       _(process.in_progress?).must_equal false
     end
 
     it 'HAPPY: should return correct info' do
-      job_count = 10
+      task_count = 10
       channel_id = 1000
-      # Fake API response
-      class Response
-        def processing?; true; end
-        def message; ProcessMessage.new(10, 1000); end # modify this along with previous definition
-      end
-      process = Views::AnalyzeProcess.new(Skiller::App.config, nil, Response.new)
+      response = Response.new(true, ProcessMessage.new(task_count, channel_id))
+      process = Views::AnalyzeProcess.new(Skiller::App.config, nil, response)
 
-      _(process.task_count).must_equal job_count
+      _(process.task_count).must_equal task_count
       _(process.channel_id).must_equal channel_id
     end
 
     it 'HAPPY: should get faye server info' do
-      # Fake API response
-      class Response
-        def processing?; true; end
-        def message; ProcessMessage.new(nil, nil); end
-      end
-      process = Views::AnalyzeProcess.new(Skiller::App.config, nil, Response.new)
+      process = Views::AnalyzeProcess.new(Skiller::App.config, nil, nil)
 
       _(process.javascript_url).wont_be_nil
       _(process.server_route).wont_be_nil
