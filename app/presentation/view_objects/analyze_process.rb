@@ -15,6 +15,10 @@ module Views
       @response.processing?
     end
 
+    def task_count
+      @response.message['task_count'] if in_progress?
+    end
+
     def channel_id
       @response.message['request_id'] if in_progress?
     end

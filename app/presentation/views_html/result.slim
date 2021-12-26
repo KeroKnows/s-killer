@@ -1,41 +1,43 @@
 .container
+  .row
+    h2.my-3 id="title"
+      | Skillset of
+      span.fst-italic
+        =< "#{process.query}"
+    a.link-secondary.my-1 id="return-btn" href="/?query=#{process.query}"
+      i.fas.fa-share.mx-1
+      | search for other jobs
+
+  / Reactive prograss reporter
   - if process.in_progress?
-    .row
-      h2 processing
-      span.reactive-info Preparing the analyzation...
+    hr.mx-2.my-3
+    .reactive-info
+      .progress-message
+        h5.y-3 = "Preparing for the analyzation process..."
+        p = "Estimated job count ##{process.task_count}"
     script src = "#{process.javascript_url}"
     javascript:
-      var channel = "#{process.channel_id}";
-      var client = new Faye.Client("#{process.server_route}");
-      var block = document.getElementsByClassName("reactive-info")[0];
-      var cnt = 0;
+      const client = new Faye.Client("#{process.server_route}");
+      const mailbox = document.getElementsByClassName("progress-message")[0];
       const reload = () => {
-        form = new DOMParser().parseFromString("<form action='/result' method='POST' name='request' style='display: hidden;'><input name='query' value='#{process.query}'></input></form>",
+        form = new DOMParser().parseFromString("<form action='/result' method='POST' name='request' style='display: none;'><input name='query' value='#{process.query}'></input></form>",
                                                'text/html').body.firstChild;
         document.body.appendChild(form).submit();
       }
-      client.subscribe('/' + channel, function(message) {
+      var finished_job = 0;
+      client.subscribe("/#{process.channel_id}", function(message) {
         console.debug(`Get socket: ${message}`)
-        if(message) {
-          cnt += 1;
-          block.innerHTML = `Finished analyzing job #${cnt}: ${message}.`;
-          if(cnt >= 5) {
-            block.innerHTML = "Done";
-            setTimeout(reload, 1500);
-          }
-        } else {
-          block.innerHTML = "Empty"
+        if(!message) return;
+
+        finished_job += 1;
+        mailbox.innerHTML = `Progress: Finished job #${finished_job}/##{process.task_count} - ${message}`;
+        if(finished_job >= #{process.task_count}) {
+          mailbox.innerHTML = 'All analyzations are done!<br/>This page will automatically reload after 3 secs...';
+          setTimeout(reload, 3000);
         }
       });
+  / Skillset information
   - else
-    .row
-      h2.my-3 id="title"
-        | Result for
-        span.fst-italic
-          =< "#{skillset.query}"
-      a.link-secondary id="return-btn" href="/?query=#{skillset.query}"
-        i.fas.fa-share.mx-1
-        | search for other jobs
     .row
       .col-4
         / Skills Required card
