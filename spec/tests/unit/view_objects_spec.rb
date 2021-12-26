@@ -3,6 +3,8 @@
 require_relative '../../helpers/vcr_helper'
 require_relative '../../spec_helper'
 
+# Fake process message
+ProcessMessage = Struct.new(:task_count, :request_id)
 # Fake Job entity
 Job = Struct.new(:title, :description, :location, :salary, :db_id)
 # Fake Skill entity
@@ -97,6 +99,52 @@ describe 'Test View Objects' do
       skilljob = Views::SkillJob.new(nil, nil, nil, salary_distribution)
       _(skilljob.max_salary).must_equal "TWD$ #{max_salary}"
       _(skilljob.min_salary).must_equal "TWD$ #{min_salary}"
+    end
+  end
+
+  describe 'Test AnalyzeProcess Object' do
+    it 'HAPPY: should correctly decide if the result is still under processing' do
+      # Fake API response
+      class Response
+        def processing?; true; end
+        def message; ProcessMessage.new(10, 10); end
+      end
+      process = Views::AnalyzeProcess.new(Skiller::App.config, nil, Response.new)
+      _(process.in_progress?).must_equal true
+
+      # Fake API response
+      class Response
+        def processing?; false; end
+        def message; ProcessMessage.new(10, 10); end
+      end
+      process = Views::AnalyzeProcess.new(Skiller::App.config, nil, Response.new)
+      _(process.in_progress?).must_equal false
+    end
+
+    it 'HAPPY: should return correct info' do
+      job_count = 10
+      channel_id = 1000
+      # Fake API response
+      class Response
+        def processing?; true; end
+        def message; ProcessMessage.new(10, 1000); end # modify this along with previous definition
+      end
+      process = Views::AnalyzeProcess.new(Skiller::App.config, nil, Response.new)
+
+      _(process.task_count).must_equal job_count
+      _(process.channel_id).must_equal channel_id
+    end
+
+    it 'HAPPY: should get faye server info' do
+      # Fake API response
+      class Response
+        def processing?; true; end
+        def message; ProcessMessage.new(nil, nil); end
+      end
+      process = Views::AnalyzeProcess.new(Skiller::App.config, nil, Response.new)
+
+      _(process.javascript_url).wont_be_nil
+      _(process.server_route).wont_be_nil
     end
   end
 end
