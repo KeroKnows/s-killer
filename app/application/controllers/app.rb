@@ -56,18 +56,22 @@ module Skiller
             end
 
             skill_analysis = skill_analysis.value!
-            if skill_analysis[:response].processing?
-              flash[:notice] = 'Skillset is being analyzed now. Please request again after awhile'
-              router.redirect "/?query=#{skill_analysis[:query]}"
+            response = skill_analysis[:response]
+            if response.processing?
+              flash[:notice] = 'Skillset is being analyzed now. Please wait for the job done'
+            else
+              jobskill = skill_analysis[:result]
+              skillset = Views::SkillJob.new(
+                jobskill[:query], jobskill[:jobs], jobskill[:skills], jobskill[:salary_dist]
+              )
+              flash[:notice] = "Your last query is '#{skillset.query}'"
+              # response.expires(60, public: true) if App.environment == :production
             end
 
-            jobskill = skill_analysis[:result]
-            skillset = Views::SkillJob.new(
-              jobskill[:query], jobskill[:jobs], jobskill[:skills], jobskill[:salary_dist]
-            )
+            process_info = Views::AnalyzeProcess.new(App.config, skill_analysis[:query], response)
 
-            flash[:notice] = "Your last query is '#{skillset.query}'"
-            view 'result', locals: { skillset: skillset }
+            view 'result', locals: { skillset: skillset,
+                                     process: process_info }
           end
         end
       end
