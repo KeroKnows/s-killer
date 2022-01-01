@@ -8,7 +8,7 @@
       i.fas.fa-share.mx-1
       | search for other jobs
 
-  / Reactive prograss reporter
+  / Reactive progress reporter
   - if process.in_progress?
     hr.mx-2.my-3
     .reactive-info
@@ -19,11 +19,6 @@
     javascript:
       const client = new Faye.Client("#{process.server_route}");
       const mailbox = document.getElementsByClassName("progress-message")[0];
-      const reload = () => {
-        form = new DOMParser().parseFromString("<form action='/result' method='POST' name='request' style='display: none;'><input name='query' value='#{process.query}'></input></form>",
-                                               'text/html').body.firstChild;
-        document.body.appendChild(form).submit();
-      }
       var finished_job = 0;
       client.subscribe("/#{process.channel_id}", function(message) {
         console.debug(`Get socket: ${message}`)
@@ -33,7 +28,7 @@
         mailbox.innerHTML = `Progress: Finished job #${finished_job}/##{process.task_count} - ${message}`;
         if(finished_job >= #{process.task_count}) {
           mailbox.innerHTML = 'All analyzations are done!<br/>This page will automatically reload after 3 secs...';
-          setTimeout(reload, 3000);
+          setTimeout(() => window.location.reload(), 3000);
         }
       });
   / Skillset information

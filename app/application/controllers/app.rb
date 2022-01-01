@@ -48,6 +48,18 @@ module Skiller
           # POST /result
           router.post do
             query_form = Forms::Query.new.call(router.params)
+
+            if query_form.failure?
+              flash[:error] = query_form.failure
+              router.redirect '/'
+            end
+
+            router.redirect "/result?query=#{query_form[:query]}"
+          end
+
+          # GET /result?query=
+          router.get do
+            query_form = Forms::Query.new.call(router.params)
             skill_analysis = Service::AnalyzeSkills.new.call(query_form)
 
             if skill_analysis.failure?
@@ -65,7 +77,6 @@ module Skiller
                 jobskill[:query], jobskill[:jobs], jobskill[:skills], jobskill[:salary_dist]
               )
               flash[:notice] = "Your last query is '#{skillset.query}'"
-              # response.expires(60, public: true) if App.environment == :production
             end
 
             process_info = Views::AnalyzeProcess.new(App.config, skill_analysis[:query], response)
