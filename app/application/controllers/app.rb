@@ -50,7 +50,7 @@ module Skiller
             query_form = Forms::Query.new.call(router.params)
 
             if query_form.failure?
-              flash[:error] = query_form.failure
+              flash[:error] = "invalid query: #{query_form.errors[:query].first}"
               router.redirect '/'
             end
 

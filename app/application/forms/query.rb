@@ -11,7 +11,7 @@ module Skiller
       end
 
       rule(:query) do
-        key.failure('is an empty request') if value.strip.empty?
+        key.failure('should not be empty') if value.strip.empty?
       end
     end
   end

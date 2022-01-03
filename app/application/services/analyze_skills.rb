@@ -21,7 +21,7 @@ module Skiller
         if input.success?
           Success(query: query)
         else
-          Failure("Invalid query: '#{query}'")
+          Failure("Invalid query: '#{input.errors[:query]}'")
         end
       end
 
