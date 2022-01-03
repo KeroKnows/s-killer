@@ -149,64 +149,43 @@ http_interactions:
   recorded_at: Sun, 19 Dec 2021 15:20:54 GMT
 - request:
     method: get
-    uri: https://chromedriver.storage.googleapis.com/LATEST_RELEASE_96.0.4664
+    uri: http://127.0.0.1:4001/api/v1/skills?name=javascript
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: ''
     headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
+      - application/json
+      Connection:
+      - close
       Host:
-      - chromedriver.storage.googleapis.com
+      - 127.0.0.1:4001
+      User-Agent:
+      - http.rb/5.0.4
   response:
     status:
       code: 200
       message: OK
     headers:
-      X-Guploader-Uploadid:
-      - ADPycdtTYk2-an07dmt_o1vlRtrnDIn3MFMhoFYzjruZ9Q6_BGleYOIVNcVUsWLz6l3Shr5klqAFCp3JKyqBcfje9w
-      Expires:
-      - Sat, 01 Jan 2022 05:49:32 GMT
-      Date:
-      - Sat, 01 Jan 2022 04:49:32 GMT
-      Last-Modified:
-      - Tue, 16 Nov 2021 09:36:02 GMT
-      Etag:
-      - '"2aa8941e6db48cc78e86089c7e9e9dfc"'
-      X-Goog-Generation:
-      - '1637055362140818'
-      X-Goog-Metageneration:
-      - '1'
-      X-Goog-Stored-Content-Encoding:
-      - identity
-      X-Goog-Stored-Content-Length:
-      - '12'
       Content-Type:
-      - text/plain
-      X-Goog-Hash:
-      - crc32c=xQfrLQ==
-      - md5=KqiUHm20jMeOhgicfp6d/A==
-      X-Goog-Storage-Class:
-      - STANDARD
-      Accept-Ranges:
-      - bytes
-      Content-Length:
-      - '12'
-      Server:
-      - UploadServer
-      Age:
-      - '1507'
+      - application/json
       Cache-Control:
-      - public, max-age=3600
-      Alt-Svc:
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
-        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      - public, max-age=86400
+      Date:
+      - Mon, 03 Jan 2022 14:21:09 GMT
+      X-Content-Digest:
+      - 6321d0ffec4f52e906c497932b1c33d4e9b68fd9
+      Age:
+      - '0'
+      X-Rack-Cache:
+      - miss, store
+      Connection:
+      - close
+      Content-Length:
+      - '2353'
     body:
-      encoding: UTF-8
-      string: 96.0.4664.45
-  recorded_at: Sat, 01 Jan 2022 05:14:39 GMT
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJxdWVyeSI6WyJweXRob24iLCJqYXZhc2NyaXB0Il0sImpvYnMiOlt7ImpvYl9pZCI6NDUwMjE3MjcsImRiX2lkIjoyMzEyLCJ0aXRsZSI6IlNlbmlvIFNvZnR3YXJlIEVuZ2luZWVyIC0gQmFja2VuZCIsImRlc2NyaXB0aW9uIjoiIDxwPlNlbmlvciBTb2Z0d2FyZSBFbmdpbmVlciAtIEJhY2tlbmQgRGV2ZWxvcGVyPC9wPiA8cD5HZW5lcmFsbHksIGFueSBiYWNrZW5kIGxhbmd1YWdlIGlzIGZpbmUsIGJ1dCBpZGVhbGx5LCB5b3Ugd2lsbCB3YW50IHRvIHdvcmsgd2l0aCBUeXBlc2NyaXB0IGFuZCBweXRob248L3A+IDxwPldlIGFyZSB3b3JraW5nIHdpdGggYSBjb21wYW55IHRoYXQgaXMgYSBmYW50YXN0aWMgRmludGVjaCBmaXJtIHdobyBhcmUgYSBsZWFkZXIgaW4gZmFpciBmaW5hbmNlcyBhbmQgYXJlIGRpc3J1cHRpbmcgdGhlIEluZHVzdHJ5IHdoaWNoIHRoZXkgYXJlIEhVR0VMWSBwYXNzaW9uYXRlIGFib3V0LiBUaGV5IGhhdmUgaGFkIHRyZW1lbmRvdXMgc3VjY2VzcyBzbyBmYXIgYnV0IHJlcXVpcmUgbW9yZSB0YWxlbnQgaW4gdGhlaXIgZW5naW5lZXJpbmcgIHRlYW0gdG8gYWlkIHRoZSBpbnRlcm5hdGlvbmFsIGdyb3d0aC48L3A+IDxwPlRoaXMgVGVjaCB2ZW50dXJlIGhhcyBiZWVuIGRlc2NyaWJlZCBhbmQgdGhlIG5leHQgYmlnIHRoaW5nISBUaGV5IGFyZSBhIHNwbGl0IFVTLCBFdXJvcGUgYW5kIFVLIHRlYW0gY3VycmVudGx5IGFuZCBhcmUgbG9va2luZyB0byBncm93IHRoZSB0ZWNoIGZ1bmN0aW9uIGZ1cnRoZXIgaW4gdGhlIFVLLiBZb3UgaGF2ZSBhbiBvcHBvcnR1bml0eSB0byBqb2luIGEgaHVnZWx5IHBhc3Npb25hdGUgdGVhbSB0aGF0IGlzIHN0cml2aW5nIHRvIG1ha2UgIHRoaXMgdGhlIGJlc3QgY29tcGFueSB0aGV5IGNhbiBhbmQgc3RvY2tzIGFzIGFuIGFkZCBvbiB0byB0aGVpciBncmVhdCBwYWNrYWdlITwvcD4gPHA+VGhlIGlkZWFsIGNhbmRpZGF0ZSB3aWxsIGhhdmUgYSBzb2xpZCBncmFzcCBvZiBiYWNrZW5kIGVuZ2luZWVyaW5nIGFuZCB5b3Ugd2lsbCBoYXZlIGEgZm9jdXMgb24gaW50ZWdyYXRpb24gd2hvIHN3YXkgdG93YXJkcyBwcm9ibGVtLXNvbHZpbmcvdHJvdWJsZXNob290aW5nIGFuZCBpcyBjb21mb3J0YWJsZSB3aXRoIGp1c3QgZGl2aW5nIGluIGFuZCBmaWd1cmluZyBzdHVmZiBvdXQgOik8L3A+IDxwPlRoZSBTZW5pb3IgU29mdHdhcmUgRW5naW5lZXIgd2lsbCBuZWVkOjwvcD4gPHVsPiA8bGk+Rmx1ZW5jeSBpbiBhdCBsZWFzdCAxIG1ham9yIGJhY2tlbmQgcHJvZ3JhbW1pbmcgbGFuZ3VhZ2UgKGUuZy4gUHl0aG9uLCBUeXBlU2NyaXB0LCBHbywgUnVzdCwgS290bGluLCBDIyk8L2xpPjxsaT5TdHJvbmcgZ3Jhc3Agb2YgU1FMIGZ1bmRhbWVudGFscyAod2UgdXNlIFBvc3RncmVTUUwsIGFuZCB3ZSBkb27igJl0IGxpa2UgT1JNcyk8L2xpPjxsaT5FeHBlcmllbmNlIHVzaW5nIGF0IGxlYXN0IDEgY2xvdWQgcHJvdmlkZXIgKGUuZy4gQVdTLCBBenVyZSwgR0NQKTwvbGk+PGxpPllvdSBhcmUgYWJsZSB0byB0dXJuIGNvbXBsZXggcHJvYmxlbXMgaW50byB1c2VyLWZyaWVuZGx5IHNvbHV0aW9ucywgZG9jdW1lbnRpbmcgYW5kIGNvbW11bmljYXRpbmcgdG8gY3Jvc3MtZnVuY3Rpb25hbCB0ZWFtcy48L2xpPjxsaT5Zb3UgYXJlIHdpbGxpbmcgdG8gZ28gYWJvdmUgYW5kIGJleW9uZCwgZ3VpZGluZyBjbGllbnRz4oCZIElUIGFuZCBzb2Z0d2FyZSBlbmdpbmVlcnMgYXJvdW5kIHRoZSBiZXN0IHdheXMgdG8gZ2V0IHRoZWlyIHN5c3RlbXMgaW50ZWdyYXRlZC48L2xpPjwvdWw+IDxwPklmIHlvdSBoYXZlIHRoZSBhYm92ZSBleHBlcmllbmNlIGZvciB0aGUgU2VuaW9yIEJhY2tlbmQgRW5naW5lZXIgcm9sZSB0aGVuIHBsZWFzZSBBUFBMWSBOT1cgYW5kIHdlIGNhbiBkaXNjdXNzIGl0IGZ1cnRoZXIuPC9wPiAiLCJsb2NhdGlvbiI6IkxvbmRvbiIsInNhbGFyeSI6eyJ5ZWFyX21heCI6MTEwMDAwLjAsInllYXJfbWluIjo4MDAwMC4wLCJjdXJyZW5jeSI6IkdCUCJ9LCJ1cmwiOiJodHRwczovL3d3dy5yZWVkLmNvLnVrL2pvYnMvc2VuaW8tc29mdHdhcmUtZW5naW5lZXItYmFja2VuZC80NTAyMTcyNyIsImlzX2Z1bGwiOnRydWUsImlzX2FuYWx5emVkIjp0cnVlfV0sInNraWxscyI6W3sibmFtZSI6InB5dGhvbiIsInNhbGFyeSI6eyJ5ZWFyX21heCI6MTEwMDAwLjAsInllYXJfbWluIjo4MDAwMC4wLCJjdXJyZW5jeSI6IkdCUCJ9fV0sInNhbGFyeV9kaXN0Ijp7Im1heGltdW0iOjQxMDczNDIuODAwMDAwMDAwMywibWluaW11bSI6Mjk4NzE1OC40MDAwMDAwMDA0LCJjdXJyZW5jeSI6IlRXRCJ9LCJsaW5rcyI6W3sicmVsIjoic2VsZiIsImhyZWYiOiJodHRwOi8vMTI3LjAuMC4xOjQwMDEvIn1dfQ==
+  recorded_at: Mon, 03 Jan 2022 14:21:09 GMT
 recorded_with: VCR 6.0.0

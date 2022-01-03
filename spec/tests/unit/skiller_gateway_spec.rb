@@ -35,6 +35,12 @@ describe 'Test Skiller Gateway' do
       params = { key1: 'value1', key2: 'value2' }
       _(Skiller::Gateway::Api::Parameters.new(params).to_s).must_equal '?key1=value1&key2=value2'
     end
+
+    it 'HAPPY: should be able to combine parameters with a list of values' do
+      # value list
+      params = { key1: ['value1', 'value2'], key2: 'value3' }
+      _(Skiller::Gateway::Api::Parameters.new(params).to_s).must_equal '?key1=value1&key1=value2&key2=value3'
+    end
   end
 
   describe 'TEST Response Library' do
@@ -48,6 +54,7 @@ describe 'Test Skiller Gateway' do
   end
 
   describe 'Test Basic Utilities' do
+    # Not testing result content here, since gateway should be innocent of contents
     it 'HAPPY: should be able to check API status' do
       api = Skiller::Gateway::Api.new(CONFIG)
       _(api.alive?).wont_be_nil
@@ -60,7 +67,24 @@ describe 'Test Skiller Gateway' do
       _(result).must_be_instance_of Skiller::Gateway::Api::Response
       _(result).must_respond_to :payload
       _(result).must_respond_to :message
-      # Not testing result content here, since gateway should be innocent of contents
+    end
+
+    it 'HAPPY: should be able to request job details' do
+      api = Skiller::Gateway::Api.new(CONFIG)
+      result = api.request_detail(TEST_JOB_ID)
+
+      _(result).must_be_instance_of Skiller::Gateway::Api::Response
+      _(result).must_respond_to :payload
+      _(result).must_respond_to :message
+    end
+
+    it 'HAPPY: should be able to search with specific properties' do
+      api = Skiller::Gateway::Api.new(CONFIG)
+      result = api.request_searching(TEST_SKILLSET)
+
+      _(result).must_be_instance_of Skiller::Gateway::Api::Response
+      _(result).must_respond_to :payload
+      _(result).must_respond_to :message
     end
   end
 end

@@ -32,3 +32,4 @@ EMPTY_KEYWORD = ' '
 EMPTY_RESULT_KEYWORD = 'asdf'
 TEST_JOB_ID = 1110
 INVALID_JOB_ID = 1000
+TEST_SKILLSET = { name: %w'python javascript' }

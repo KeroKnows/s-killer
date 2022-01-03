@@ -26,6 +26,11 @@ module Skiller
         @request.get_job_detail(job_id)
       end
 
+      # GET skills from given params
+      def request_searching(params)
+        @request.get_skills(params)
+      end
+
       # HTTP request transmitter
       class Request
         def initialize(config)
@@ -44,6 +49,11 @@ module Skiller
 
         def get_job_detail(job_id)
           url = get_route(['details', job_id.to_s])
+          call_api('get', url)
+        end
+
+        def get_skills(params)
+          url = get_route(['skills'], params)
           call_api('get', url)
         end
 
@@ -72,9 +82,15 @@ module Skiller
           @params = params
         end
 
+        def query_str(key, value)
+          return "#{key}=#{value}" unless value.respond_to? :map
+          params = value.map { |v| "#{key}=#{v}" }
+          params.join('&')
+        end
+
         # transform parameter lists into a string
         def to_s
-          @params.map { |key, value| "#{key}=#{value}" }.join('&')
+          @params.map { |key, value| query_str(key, value) }.join('&')
                  .then { |str| str.empty? ? '' : "?#{str}" }
         end
       end
