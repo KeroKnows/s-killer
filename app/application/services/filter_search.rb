@@ -4,36 +4,34 @@ require 'dry/transaction'
 
 module Skiller
   module Service
-    # Request the jobs related to given query, and analyze the skillset from it
-    class AnalyzeSkills
+    # Get job details with the given job id
+    class FilterSearch
       include Dry::Transaction
 
       step :validate_request
-      step :retrieve_result
+      step :request_api
       step :reify_result
 
-      private
-
-      # Check if the previous form validation passes
-      def validate_request(input)
-        query = input[:query]
-        if input.success?
-          Success(query: query)
-        else
-          Failure("Invalid query: '#{input.errors[:query]}'")
-        end
+      # Validate user input
+      # :reek:UncommunicativeVariableName for rescued error
+      def validate_request(params)
+        return Failure('At least on param should be given') if params.empty?
+        skills = params['name']
+        Success(name: skills)
+      rescue StandardError => e
+        Failure("Fail to validate the request: #{e}")
       end
 
-      # Request result from Skiller::API
+      # Search the jobs with filter from Skiller::API
       # :reek:UncommunicativeVariableName for rescued error
-      def retrieve_result(input)
-        response = Gateway::Api.new(App.config).request_skillset(input[:query])
+      def request_api(input)
+        response = Gateway::Api.new(App.config).request_searching(input)
         return Failure(response.message) unless response.success?
 
         input[:response] = response
         Success(input)
       rescue StandardError => e
-        Failure("Fail to retrieve result: #{e}")
+        Failure("Fail to request API: #{e}")
       end
 
       # Transform result back to a representer
