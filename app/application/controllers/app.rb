@@ -26,6 +26,15 @@ module Skiller
         end
       end
 
+      router.on 'search' do
+        router.is do
+          # GET /search
+          router.get do
+            'search for jobs or skills'
+          end
+        end
+      end
+
       # GET /detail/{JOB_ID}
       router.on 'detail' do
         router.on Integer do |job_id|
@@ -43,9 +52,9 @@ module Skiller
         end
       end
 
-      router.on 'result' do
-        router.is do
-          # POST /result
+      router.on 'results' do
+        router.on 'skills' do
+          # POST /results/skills
           router.post do
             query_form = Forms::Query.new.call(router.params)
 
@@ -54,10 +63,10 @@ module Skiller
               router.redirect '/'
             end
 
-            router.redirect "/result?query=#{query_form[:query]}"
+            router.redirect "/results/skills?query=#{query_form[:query]}"
           end
 
-          # GET /result?query=
+          # GET /results/skills?query=<QUERY>
           router.get do
             query_form = Forms::Query.new.call(router.params)
             skill_analysis = Service::AnalyzeSkills.new.call(query_form)
@@ -81,11 +90,30 @@ module Skiller
 
             process_info = Views::AnalyzeProcess.new(App.config, skill_analysis[:query], response)
 
-            view 'result', locals: { skillset: skillset,
-                                     process: process_info }
+            view 'result_skill', locals: { skillset: skillset,
+                                           process: process_info }
           end
         end
+
+        # GET /results/jobs?name[]=<SKILL>
+        router.on 'jobs' do
+          filter_search = Service::FilterSearch.new.call(router.params)
+
+          if filter_search.failure?
+            flash[:error] = filter_search.failure
+            router.redirect '/'
+          end
+
+          filter_search = filter_search.value!
+          jobskill = filter_search[:result]
+          skillset = Views::SkillJob.new(
+            jobskill[:query], jobskill[:jobs], jobskill[:skills], jobskill[:salary_dist]
+          )
+
+          view 'result_job', locals: { skillset: skillset }
+        end
       end
+
     end
   end
 end

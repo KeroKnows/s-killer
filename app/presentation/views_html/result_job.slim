@@ -1,0 +1,50 @@
+.container
+  .row
+    h2.my-3 id="title" Jobs for your skillset
+    a.link-secondary.my-1 id="return-btn" href="/"
+      i.fas.fa-share.mx-1
+      | search for other skillsets
+
+  / Skillset information
+  .row
+    .col-4
+      / Skills Required card
+      .card
+        .card-header Skills Required
+        .card-body
+          ul.list-group.list-group-flush id="skill-list"
+            - skillset.skills.each do |skill|
+              li.list-group-item
+                span.skill-name
+                  = skill.name
+                span.badge.mx-2.bg-light.rounded.text-black.float-end.skill-count
+                  = skill.count
+    .col-8
+      / Salary card
+      .card
+        .card-header Salary
+        .card-body
+          ul.list-group.list-group-flush id="salary-list"
+            li.list-group-item
+              | Maximum Year Salary:
+              span< = skillset.max_salary
+            li.list-group-item
+              | Minimum Year Salary:
+              span< = skillset.min_salary
+  .row
+    / Job Vacancy cards
+    div id="vacancy-box"
+      - skillset.jobs.each do |job|
+        .card.my-5.p-3
+          p.card-subtitle.text-muted
+            i.fas.fa-map-marker-alt.mx-1
+            span = job.location
+          h4.px-2.card-title = job.title
+          hr.mt-2.mb-3
+          p.px-4.card-text = job.brief
+          a.link-secondary.stretched-link href="/detail/#{job.id}"
+            | read more...
+
+    / Navigator
+    a.position-fixed.bottom-0.end-0.m-3.fs-2.link-secondary href='#'
+      i.fas.fa-chevron-circle-up
