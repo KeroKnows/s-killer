@@ -26,15 +26,6 @@ module Skiller
         end
       end
 
-      router.on 'search' do
-        router.is do
-          # GET /search
-          router.get do
-            'search for jobs or skills'
-          end
-        end
-      end
-
       # GET /detail/{JOB_ID}
       router.on 'detail' do
         router.on Integer do |job_id|
@@ -56,7 +47,7 @@ module Skiller
         router.on 'skills' do
           # POST /results/skills
           router.post do
-            query_form = Forms::Query.new.call(router.params)
+            query_form = Forms::JobQuery.new.call(router.params)
 
             if query_form.failure?
               flash[:error] = "invalid query: #{query_form.errors[:query].first}"
@@ -68,7 +59,7 @@ module Skiller
 
           # GET /results/skills?query=<QUERY>
           router.get do
-            query_form = Forms::Query.new.call(router.params)
+            query_form = Forms::JobQuery.new.call(router.params)
             skill_analysis = Service::AnalyzeSkills.new.call(query_form)
 
             if skill_analysis.failure?
@@ -95,22 +86,37 @@ module Skiller
           end
         end
 
-        # GET /results/jobs?name[]=<SKILL>
         router.on 'jobs' do
-          filter_search = Service::FilterSearch.new.call(router.params)
+          # POST /results
+          router.post do
+            search_form = Forms::SkillQuery.new.call(router.params)
 
-          if filter_search.failure?
-            flash[:error] = filter_search.failure
-            router.redirect '/'
+            if search_form.failure?
+              flash[:error] = search_form.failure
+              router.redirect '/'
+            end
+
+            search_form = search_form.value!
+            router.redirect "/results/jobs?#{search_form[:query]}"
           end
 
-          filter_search = filter_search.value!
-          jobskill = filter_search[:result]
-          skillset = Views::SkillJob.new(
-            jobskill[:query], jobskill[:jobs], jobskill[:skills], jobskill[:salary_dist]
-          )
+          # GET /results/jobs?name[]=<SKILL>
+          router.get do
+            filter_search = Service::FilterSearch.new.call(router.params)
 
-          view 'result_job', locals: { skillset: skillset }
+            if filter_search.failure?
+              flash[:error] = filter_search.failure
+              router.redirect '/'
+            end
+
+            filter_search = filter_search.value!
+            jobskill = filter_search[:result]
+            skillset = Views::SkillJob.new(
+              jobskill[:query], jobskill[:jobs], jobskill[:skills], jobskill[:salary_dist]
+            )
+
+            view 'result_job', locals: { skillset: skillset }
+          end
         end
       end
 

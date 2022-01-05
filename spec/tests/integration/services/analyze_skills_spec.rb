@@ -16,7 +16,7 @@ describe 'Integration Test for AnalyzeSkills Service' do
 
   it 'BAD: should fail empty query' do
     # GIVEN: an empty query
-    query_form = Skiller::Forms::Query.new.call(query: EMPTY_KEYWORD)
+    query_form = Skiller::Forms::JobQuery.new.call(query: EMPTY_KEYWORD)
 
     # WHEN: the service is called
     jobskill = Skiller::Service::AnalyzeSkills.new.call(query_form)
@@ -28,7 +28,7 @@ describe 'Integration Test for AnalyzeSkills Service' do
 
   it 'HAPPY: should search unseen query and get processing status' do
     # GIVEN: a valid, non-existing query
-    query_form = Skiller::Forms::Query.new.call(query: NEW_KEYWORD)
+    query_form = Skiller::Forms::JobQuery.new.call(query: NEW_KEYWORD)
 
     # WHEN: the service is called
     skill_analysis = Skiller::Service::AnalyzeSkills.new.call(query_form)
@@ -43,7 +43,7 @@ describe 'Integration Test for AnalyzeSkills Service' do
 
   it 'HAPPY: should search healthy query and get result' do
     # GIVEN: a valid, existing query
-    query_form = Skiller::Forms::Query.new.call(query: TEST_KEYWORD)
+    query_form = Skiller::Forms::JobQuery.new.call(query: TEST_KEYWORD)
 
     # WHEN: the service is called
     skill_analysis = Skiller::Service::AnalyzeSkills.new.call(query_form)
