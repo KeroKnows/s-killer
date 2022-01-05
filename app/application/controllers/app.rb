@@ -119,7 +119,6 @@ module Skiller
           end
         end
       end
-
     end
   end
 end

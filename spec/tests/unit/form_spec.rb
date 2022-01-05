@@ -19,7 +19,7 @@ describe 'Test Application Form' do
     end
 
     it 'HAPPY: should transform form data into query' do
-      skills = %w'Ruby JavaScript Python'
+      skills = %w[Ruby JavaScript Python]
       skill_query = { skills: skills.join(',') }
 
       query_form = Skiller::Forms::SkillQuery.new.call(skill_query)
@@ -30,7 +30,7 @@ describe 'Test Application Form' do
     end
 
     it 'HAPPY: should be able to deal with different seperator' do
-      skills = %w'Ruby JavaScript Python'
+      skills = %w[Ruby JavaScript Python]
       seperators = [',', "\n", ' ', " \n,", " \n ,", ", \n", ",\n ", "\n\n", "  \n"]
       seperators.each do |sep|
         skill_query = { skills: skills.join(sep) }

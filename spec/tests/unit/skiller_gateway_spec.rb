@@ -38,7 +38,7 @@ describe 'Test Skiller Gateway' do
 
     it 'HAPPY: should be able to combine parameters with a list of values' do
       # value list
-      params = { key1: ['value1', 'value2'], key2: 'value3' }
+      params = { key1: %w[value1 value2], key2: 'value3' }
       _(Skiller::Gateway::Api::Parameters.new(params).to_s).must_equal '?key1=value1&key1=value2&key2=value3'
     end
   end

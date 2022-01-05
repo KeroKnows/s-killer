@@ -80,18 +80,26 @@ module Skiller
       class Parameters
         def initialize(params)
           @params = params
+          @queries = query_to_list
         end
 
-        def query_str(key, value)
-          return "#{key}=#{value}" unless value.respond_to? :map
-          params = value.map { |v| "#{key}=#{v}" }
-          params.join('&')
+        def query_to_list
+          @params.map do |key, value|
+            Parameters.expand_query(key, value).join('&')
+          rescue NoMethodError
+            "#{key}=#{value}"
+          end
         end
 
         # transform parameter lists into a string
         def to_s
-          @params.map { |key, value| query_str(key, value) }.join('&')
-                 .then { |str| str.empty? ? '' : "?#{str}" }
+          @queries.join('&')
+                  .then { |str| str.empty? ? '' : "?#{str}" }
+        end
+
+        # expand value list into a list of key-value string
+        def self.expand_query(key, value)
+          value.map { |val| "#{key}=#{val}" }
         end
       end
 

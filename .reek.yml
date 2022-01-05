@@ -4,6 +4,11 @@ detectors:
     max_instance_variables: 6
 
 directories:
+  "app/application/forms": # form validations are funtional-oriented
+    UtilityFunction:
+      enabled: false
+    FeatureEnvy:
+      enabled: false
   "app/application/services": # service scripts are funtional-oriented
     UtilityFunction:
       enabled: false

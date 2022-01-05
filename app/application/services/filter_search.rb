@@ -16,6 +16,7 @@ module Skiller
       # :reek:UncommunicativeVariableName for rescued error
       def validate_request(params)
         return Failure('At least on param should be given') if params.empty?
+
         skills = params['name']
         Success(name: skills)
       rescue StandardError => e
