@@ -22,12 +22,10 @@ describe 'Detail Page Acceptance Tests' do
   it '(HAPPY) should see job details' do
     # GIVEN: the job has been properly extracted
     visit(IndexPage) do |page|
-      page.query_job(TEST_KEYWORD)
+      page.search_skill_with_query(TEST_KEYWORD)
     end
 
     # WHEN: user goes to the detail page
-    #   Sorry for the shitty testing logic here.
-    #   It may break but most of the time it works fine.
     job_id = TEST_JOB_ID
     visit(DetailPage, using_params: { job_id: job_id }) do |page|
       # THEN: details should show correctly

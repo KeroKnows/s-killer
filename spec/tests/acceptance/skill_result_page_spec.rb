@@ -3,7 +3,7 @@
 require_relative '../../helpers/acceptance_helper'
 
 require_relative 'pages/index_page'
-require_relative 'pages/result_page'
+require_relative 'pages/skill_result_page'
 
 describe 'Result Page Acceptance Tests' do
   include PageObject::PageFactory
@@ -21,16 +21,16 @@ describe 'Result Page Acceptance Tests' do
   end
 
   index_url = CONFIG.TEST_HOST
-  result_url = "#{CONFIG.TEST_HOST}/result"
+  result_url = "#{CONFIG.TEST_HOST}/results/skills"
 
   it '(HAPPY) should be able to read query results' do
     # GIVEN: user searches a query
     visit(IndexPage) do |page|
-      page.query_job(TEST_KEYWORD)
+      page.search_skill_with_query(TEST_KEYWORD)
     end
 
     # WHEN: jumping to the detail page
-    on_page(ResultPage) do |page|
+    on_page(SkillResultPage) do |page|
       # THEN: the url should be correct...
       _(@browser.url).must_match result_url
 
@@ -49,12 +49,12 @@ describe 'Result Page Acceptance Tests' do
   end
 
   it '(HAPPY) should be able to return home' do
-    # GIVEN: user is on the detail page
+    # GIVEN: user is on the result page
     visit(IndexPage) do |page|
-      page.query_job(TEST_KEYWORD)
+      page.search_skill_with_query(TEST_KEYWORD)
     end
 
-    on_page(ResultPage) do |page|
+    on_page(SkillResultPage) do |page|
       # WHEN: user try to return to index page
       page.return_to_index
 
