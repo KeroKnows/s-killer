@@ -21,7 +21,6 @@ describe 'Indexpage Acceptance Tests' do
 
   index_url = CONFIG.TEST_HOST
 
-  valid_query_notice = 'last query is'
   invalid_query_warning = 'invalid'
   empty_result_warning = 'no job found'
 
@@ -45,9 +44,9 @@ describe 'Indexpage Acceptance Tests' do
         page.search_skill_with_query(TEST_KEYWORD)
 
         # Then: jump to the correct result page
-        on SkillResultPage do |page|
+        on SkillResultPage do |rpage|
           valid_request_url = TEST_KEYWORD.sub(' ', '+')
-          page.url.include? valid_request_url
+          rpage.url.include? valid_request_url
         end
       end
     end
@@ -106,9 +105,9 @@ describe 'Indexpage Acceptance Tests' do
         page.search_job_with_skill(TEST_SKILLSET_STR)
 
         # Then: jump to the correct result page
-        on SkillResultPage do |page|
+        on SkillResultPage do |rpage|
           valid_request_url = 'name[]=Python&name[]=JavaScript'
-          page.url.include? valid_request_url
+          rpage.url.include? valid_request_url
         end
       end
     end

@@ -22,6 +22,7 @@ describe 'Result Page Acceptance Tests' do
 
   index_url = CONFIG.TEST_HOST
   result_url = "#{CONFIG.TEST_HOST}/results/skills"
+  valid_query_notice = 'last query is'
 
   it '(HAPPY) should be able to read query results' do
     # GIVEN: user searches a query
@@ -48,7 +49,7 @@ describe 'Result Page Acceptance Tests' do
     end
   end
 
-  it '(HAPPY) should be able to return home' do
+  it '(HAPPY) should be able to return home and see flash' do
     # GIVEN: user is on the result page
     visit(IndexPage) do |page|
       page.search_skill_with_query(TEST_KEYWORD)
@@ -58,8 +59,13 @@ describe 'Result Page Acceptance Tests' do
       # WHEN: user try to return to index page
       page.return_to_index
 
-      # THEN: index page should show
-      _(@browser.url).must_match index_url
+      # THEN: index page should show...
+      on_page(IndexPage) do |ipage|
+        _(ipage.url).must_match index_url
+        # ... and user can see flash bar
+        _(ipage.success_message_element.present?).must_equal true
+        _(ipage.success_message_element.text.downcase).must_match valid_query_notice
+      end
     end
   end
 end
