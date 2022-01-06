@@ -50,7 +50,8 @@ module Skiller
             query_form = Forms::JobQuery.new.call(router.params)
 
             if query_form.failure?
-              flash[:error] = "invalid query: #{query_form.errors[:query].first}"
+              error_msg = query_form.errors.to_h.map { |key, val| "#{key} #{val.first}" }.join(', ')
+              flash[:error] = "invalid query: #{error_msg}"
               router.redirect '/'
             end
 
@@ -92,7 +93,8 @@ module Skiller
             search_form = Forms::SkillQuery.new.call(router.params)
 
             if search_form.failure?
-              flash[:error] = search_form.failure
+              error_msg = search_form.failure.map { |key, val| "#{key} #{val.first}" }.join(', ')
+              flash[:error] = "invalid skillset: #{error_msg}"
               router.redirect '/'
             end
 
