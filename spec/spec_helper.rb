@@ -33,3 +33,4 @@ EMPTY_RESULT_KEYWORD = 'asdf'
 TEST_JOB_ID = 1110
 INVALID_JOB_ID = 1000
 TEST_SKILLSET = { 'name' => %w[Python JavaScript] }.freeze
+TEST_SKILLSET_STR = 'Python, JavaScript'

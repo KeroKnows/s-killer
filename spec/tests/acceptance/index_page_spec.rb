@@ -3,6 +3,7 @@
 require_relative '../../helpers/acceptance_helper'
 require_relative '../../helpers/vcr_helper'
 require_relative 'pages/index_page'
+require_relative 'pages/skill_result_page'
 
 describe 'Indexpage Acceptance Tests' do
   include PageObject::PageFactory
@@ -19,38 +20,35 @@ describe 'Indexpage Acceptance Tests' do
   end
 
   index_url = CONFIG.TEST_HOST
-  valid_request_url = TEST_KEYWORD.sub(' ', '+')
 
   valid_query_notice = 'last query is'
   invalid_query_warning = 'invalid'
   empty_result_warning = 'no job found'
 
   describe 'Visit Index Page' do
-    it '(HAPPY) should present an input box and a submit button' do
+    it '(HAPPY) elements should be presented on index page' do
       # Given: index page
       visit IndexPage do |page|
         # When: user wants to send a request
         # User is able to locate where to input and send query
-        _(page.query_element.present?).must_equal true
-        _(page.button_element.present?).must_equal true
+        _(page.query_search_element.present?).must_equal true
+        _(page.skill_submit_element.present?).must_equal true
+        _(page.skill_search_element.present?).must_equal true
+        _(page.job_submit_element.present?).must_equal true
       end
     end
 
-    it '(HAPPY) should be able to request a job query' do
-      # Given: index page
+    it '(HAPPY) should be able to request skillset with a query' do
+      # Given: on the index page
       visit IndexPage do |page|
-        # Input a valid request
-        page.query_job(TEST_KEYWORD)
+        # When: input a valid request
+        page.search_skill_with_query(TEST_KEYWORD)
 
-        # Then: user jumps to the correct details url
-        @browser.url.include? valid_request_url
-
-        # Then: user returns to index page
-        @browser.element(tag_name: 'a').click
-
-        # Then: user sees flash bar
-        _(page.success_message_element.present?).must_equal true
-        _(page.success_message_element.text.downcase).must_match valid_query_notice
+        # Then: jump to the correct result page
+        on SkillResultPage do |page|
+          valid_request_url = TEST_KEYWORD.sub(' ', '+')
+          page.url.include? valid_request_url
+        end
       end
     end
 
@@ -59,7 +57,7 @@ describe 'Indexpage Acceptance Tests' do
       visit IndexPage do |page|
         # When: user wants to send an invalid request
         # Input an invalid request
-        page.query_job(INVALID_KEYWORD)
+        page.search_skill_with_query(INVALID_KEYWORD)
 
         # Then: user jumps back to index url
         _(@browser.url).must_match index_url
@@ -74,7 +72,7 @@ describe 'Indexpage Acceptance Tests' do
       # Given: index page
       visit IndexPage do |page|
         # Input an empty request
-        page.query_job('')
+        page.search_skill_with_query('')
 
         # Then: user jumps back to index url
         _(@browser.url).must_match index_url
@@ -90,7 +88,7 @@ describe 'Indexpage Acceptance Tests' do
       visit IndexPage do |page|
         # When: user wants to send an invalid request
         # Input an invalid request
-        page.query_job(EMPTY_RESULT_KEYWORD)
+        page.search_skill_with_query(EMPTY_RESULT_KEYWORD)
 
         # Then: user jumps back to index url
         _(@browser.url).must_match index_url
@@ -98,6 +96,35 @@ describe 'Indexpage Acceptance Tests' do
         # Then: user sees flash bar
         _(page.warning_message_element.present?).must_equal true
         _(page.warning_message_element.text.downcase).must_include empty_result_warning
+      end
+    end
+
+    it '(HAPPY) should be able to request job with skills' do
+      # Given: on the index page
+      visit IndexPage do |page|
+        # When: input a valid request
+        page.search_job_with_skill(TEST_SKILLSET_STR)
+
+        # Then: jump to the correct result page
+        on SkillResultPage do |page|
+          valid_request_url = 'name[]=Python&name[]=JavaScript'
+          page.url.include? valid_request_url
+        end
+      end
+    end
+
+    it '(BAD) should not be able to request job with empty skills' do
+      # Given: on the index page
+      visit IndexPage do |page|
+        # When: input a valid request
+        page.search_job_with_skill(EMPTY_KEYWORD)
+
+        # Then: user jumps back to index url
+        _(@browser.url).must_match index_url
+
+        # Then: user sees flash bar
+        _(page.warning_message_element.present?).must_equal true
+        _(page.warning_message_element.text.downcase).must_include invalid_query_warning
       end
     end
   end
