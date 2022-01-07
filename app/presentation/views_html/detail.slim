@@ -9,8 +9,18 @@
       =< job.location
     p.fw-bold Salary
     p.ms-3
-      i.fas.fa-search-dollar
+      i.fas.fa-search-dollar.mx-1
       =< "#{job.min_salary} ~ #{job.max_salary}"
+    - if job.level
+      p.fw-bold Job level
+      p.ms-3
+        i.fas.fa-id-badge.mx-1
+        span =< job.level
+    - if job.url
+      p.fw-bold Url
+      p.ms-3
+        i.fas.fa-link.mx-1
+        a< href="#{job.url}" Apply now!
 
   .container.p-4.m-3.bg-light.rounded-3 id="job-info-box"
     h3 Job Description
