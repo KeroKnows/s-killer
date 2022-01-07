@@ -19,7 +19,12 @@ div.row
     form action='/results/jobs' method='POST'
       .card.p-3.border-none.bg-light
         label.form-label.card-title.fs-5 for='skills' 
-          | Or enter your skills to find a job:
-        textarea.form_control type='text' name='skills' placeholder='Ruby, Python, JavaScript'
-        button.btn.btn-primary type='submit' id='job-search-submit'
-          | submit
+          | Or quick-search for the jobs that meet your skills!
+        p.text-secondary
+          | > Click
+          a<> href='/search' here
+          | for advanced searching
+        .input-group.mb-3
+          input.form-control type='text' name='skills' placeholder='Ruby, Python, JavaScript'
+          button.btn.btn-primary type='submit' id='job-search-submit'
+            | submit

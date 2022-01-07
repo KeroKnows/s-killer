@@ -26,6 +26,11 @@ module Skiller
         end
       end
 
+      # GET /search
+      router.on 'search' do
+        view 'search'
+      end
+
       # GET /detail/{JOB_ID}
       router.on 'detail' do
         router.on Integer do |job_id|
@@ -95,7 +100,7 @@ module Skiller
             if search_form.failure?
               error_msg = search_form.failure.map { |key, val| "#{key} #{val.first}" }.join(', ')
               flash[:error] = "invalid skillset: #{error_msg}"
-              router.redirect '/'
+              router.redirect '/search'
             end
 
             search_form = search_form.value!
@@ -108,7 +113,7 @@ module Skiller
 
             if filter_search.failure?
               flash[:error] = filter_search.failure
-              router.redirect '/'
+              router.redirect '/search'
             end
 
             filter_search = filter_search.value!

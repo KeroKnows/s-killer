@@ -33,7 +33,7 @@
       });
   / Skillset information
   - else
-    .row
+    .row.my-3
       .col-4
         / Skills Required card
         .card
@@ -58,7 +58,7 @@
               li.list-group-item
                 | Minimum Year Salary:
                 span< = skillset.min_salary
-    .row
+    .row.my-3
       / Job Vacancy cards
       div id="vacancy-box"
         - skillset.jobs.each do |job|

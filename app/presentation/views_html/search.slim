@@ -1,0 +1,44 @@
+.row 
+  include :flash_bar
+
+  h1 Job Searching
+  h6 Search for the job that suits you best
+
+  form.row.my-3 action='/results/jobs' method='POST'
+    .col-4
+      / Sidebar: Filterer
+      .card
+        .card-header Filter
+        .card-body
+          p.card-title.fw-bold
+            | Job Level
+          .form-check
+            input.form-check-input type='checkbox' id='level-junior' name='level-junior' checked='True'
+            label.form-check-label for='level-junior' Junior
+          .form-check
+            input.form-check-input type='checkbox' id='level-senior' name='level-senior' checked='True'
+            label.form-check-label for='level-senior' Senior
+          hr
+          p.card-title.fw-bold
+            | Location
+          .form-check
+            input.form-check-input type='checkbox' id='location-all' name='location-all' checked='True'
+            label.form-check-label for='location-all' all
+          hr
+          p.card-title.fw-bold
+            | Salary
+          .form-floating.mb-3
+            input.form-control type='text' name='min-salary' id='min-salary' placeholder='1'
+            label for='min-salary' min
+          .form-floating.mb-3
+            input.form-control type='text' name='max-salary' id='max-salary' placeholder='1000000'
+            label for='max-salary' max
+    .col-8
+      / Textarea: skillset
+      h6.mx-3.form-label for='skills' 
+        | What excellent skills do you have?
+      textarea.form-control.m-3 type='text' name='skills' style='height: 300px; width: 90%;' placeholder='Ruby, Python, JavaScript...'
+      / Buttom: submit form
+      .div.my-3
+        button.btn.btn-primary.d-block.mx-auto type='submit' id='job-search-submit'
+            | submit

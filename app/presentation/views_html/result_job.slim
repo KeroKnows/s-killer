@@ -1,12 +1,12 @@
 .container
   .row
     h2.my-3 id="title" Jobs for your skillset
-    a.link-secondary.my-1 id="return-btn" href="/"
+    a.link-secondary.my-1 id="return-btn" href="/search"
       i.fas.fa-share.mx-1
-      | search for other skillsets
+      | search with other skillsets
 
   / Skillset information
-  .row
+  .row.my-3
     .col-4
       / Skills Required card
       .card
@@ -31,7 +31,7 @@
             li.list-group-item
               | Minimum Year Salary:
               span< = skillset.min_salary
-  .row
+  .row.my-3
     / Job Vacancy cards
     div id="vacancy-box"
       - skillset.jobs.each do |job|
@@ -45,6 +45,6 @@
           a.link-secondary.stretched-link href="/detail/#{job.id}"
             | read more...
 
-    / Navigator
-    a.position-fixed.bottom-0.end-0.m-3.fs-2.link-secondary href='#'
-      i.fas.fa-chevron-circle-up
+  / Navigator
+  a.position-fixed.bottom-0.end-0.m-3.fs-2.link-secondary href='#'
+    i.fas.fa-chevron-circle-up
