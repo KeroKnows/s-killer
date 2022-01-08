@@ -13,8 +13,8 @@ module Skiller
       class Contract < Dry::Validation::Contract
         params do
           required(:skills).filled(:string)
-          required(:job_level).filled(:string)
-          required(:location).filled(:string)
+          optional(:job_level).filled(:string)
+          optional(:location).filled(:string)
         end
 
         rule(:skills) do
@@ -53,11 +53,15 @@ module Skiller
       end
 
       def process_level(level, params)
+        return params unless level
+
         params[:job_level] = level unless level.match? 'all'
         params
       end
 
       def process_location(location, params)
+        return params unless location
+
         params[:location] = location unless location.match? 'all'
         params
       end

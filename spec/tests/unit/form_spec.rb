@@ -12,21 +12,25 @@ describe 'Test Application Form' do
     end
 
     it 'BAD: should fail empty skill string' do
-      empty_skill_query = { skills: '   ', location: 'LOCATION', job_level: 'LEVEL' }
+      empty_skill_query = { skills: '   ' }
       query_form = Skiller::Forms::SkillQuery.new.call(empty_skill_query)
 
       _(query_form.failure?).must_equal true
     end
 
-    it 'HAPPY: should transform form data into query' do
+    it 'HAPPY: should transform form data into correct query' do
       skills = %w[Ruby JavaScript Python]
-      skill_query = { skills: skills.join(','), location: 'LOCATION', job_level: 'LEVEL' }
+      location = 'LOCATION'
+      level = 'LEVEL'
+      skill_query = { skills: skills.join(','), location: location, job_level: level }
 
       query_form = Skiller::Forms::SkillQuery.new.call(skill_query)
       _(query_form.success?).must_equal true
 
       query_value = query_form.value!
       _(query_value[:query]).must_match 'name[]=Ruby&name[]=JavaScript&name[]=Python'
+      _(query_value[:query]).must_match "location=#{location}"
+      _(query_value[:query]).must_match "job_level=#{level}"
     end
 
     it 'HAPPY: should be able to deal with different seperator' do
