@@ -43,7 +43,7 @@ describe 'Test Application Form' do
       end
     end
 
-    it "HAPPY: should omit the location and job_level if it indicates all" do
+    it 'HAPPY: should omit the location and job_level if it indicates all' do
       skills = %w[Ruby JavaScript Python]
       skill_query = { skills: skills.join(','), location: 'all', job_level: 'all' }
 

@@ -34,13 +34,10 @@ module Skiller
       private
 
       def process_form(contract)
-        params = Hash.new
+        params = {}
         params[:name] = contract[:skills].split(/[,\n\s]+/)
-        level = contract[:job_level]
-        params[:job_level] = level unless level.match? 'all'
-        location = contract[:location]
-        params[:location] = location unless location.match? 'all'
-        params
+        params = process_level(contract[:job_level], params)
+        process_location(contract[:location], params)
       end
 
       def params_to_s(params)
@@ -53,6 +50,16 @@ module Skiller
         value.map { |val| "#{key}[]=#{val}" }.join('&')
       rescue NoMethodError
         "#{key}=#{value}"
+      end
+
+      def process_level(level, params)
+        params[:job_level] = level unless level.match? 'all'
+        params
+      end
+
+      def process_location(location, params)
+        params[:location] = location unless location.match? 'all'
+        params
       end
     end
   end
