@@ -31,14 +31,20 @@ module Skiller
         @request.get_skills(params)
       end
 
+      # GET location list
+      def request_location_list
+        @request.get_location_list
+      end
+
       # HTTP request transmitter
+      # rubocop:disable Naming/AccessorMethodName for GET method
       class Request
         def initialize(config)
           @api_host = config.API_HOST
           @api_root = "#{@api_host}/api/v1"
         end
 
-        def get_root # rubocop:disable Naming/AccessorMethodName
+        def get_root
           call_api('get')
         end
 
@@ -54,6 +60,11 @@ module Skiller
 
         def get_skills(params)
           url = get_route(['skills'], params)
+          call_api('get', url)
+        end
+
+        def get_location_list
+          url = get_route(['locations'])
           call_api('get', url)
         end
 
@@ -75,6 +86,7 @@ module Skiller
           raise "Invalid URL request: #{url}"
         end
       end
+      # rubocop:enable Naming/AccessorMethodName
 
       # Utitity class for handling HTTP parameters
       class Parameters
