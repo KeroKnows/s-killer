@@ -26,14 +26,25 @@ module Skiller
         @request.get_job_detail(job_id)
       end
 
+      # GET skills from given params
+      def request_searching(params)
+        @request.get_skills(params)
+      end
+
+      # GET location list
+      def request_location_list
+        @request.get_location_list
+      end
+
       # HTTP request transmitter
+      # rubocop:disable Naming/AccessorMethodName for GET method
       class Request
         def initialize(config)
           @api_host = config.API_HOST
           @api_root = "#{@api_host}/api/v1"
         end
 
-        def get_root # rubocop:disable Naming/AccessorMethodName
+        def get_root
           call_api('get')
         end
 
@@ -44,6 +55,16 @@ module Skiller
 
         def get_job_detail(job_id)
           url = get_route(['details', job_id.to_s])
+          call_api('get', url)
+        end
+
+        def get_skills(params)
+          url = get_route(['skills'], params)
+          call_api('get', url)
+        end
+
+        def get_location_list
+          url = get_route(['locations'])
           call_api('get', url)
         end
 
@@ -65,17 +86,32 @@ module Skiller
           raise "Invalid URL request: #{url}"
         end
       end
+      # rubocop:enable Naming/AccessorMethodName
 
       # Utitity class for handling HTTP parameters
       class Parameters
         def initialize(params)
           @params = params
+          @queries = query_to_list
+        end
+
+        def query_to_list
+          @params.map do |key, value|
+            Parameters.expand_query(key, value).join('&')
+          rescue NoMethodError
+            "#{key}=#{value}"
+          end
         end
 
         # transform parameter lists into a string
         def to_s
-          @params.map { |key, value| "#{key}=#{value}" }.join('&')
-                 .then { |str| str.empty? ? '' : "?#{str}" }
+          @queries.join('&')
+                  .then { |str| str.empty? ? '' : "?#{str}" }
+        end
+
+        # expand value list into a list of key-value string
+        def self.expand_query(key, value)
+          value.map { |val| "#{key}=#{val}" }
         end
       end
 

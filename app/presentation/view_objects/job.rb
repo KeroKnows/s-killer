@@ -32,6 +32,14 @@ module Views
       @description
     end
 
+    def url
+      @job.url
+    end
+
+    def level
+      @job.job_level
+    end
+
     def max_salary
       "#{@salary.currency}$ #{@salary.year_max}"
     end
