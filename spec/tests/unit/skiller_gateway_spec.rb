@@ -69,7 +69,7 @@ describe 'Test Skiller Gateway' do
       _(result).must_respond_to :message
     end
 
-    it 'HAPPY: should be able to request available job locatinos' do
+    it 'HAPPY: should be able to request available job locations' do
       api = Skiller::Gateway::Api.new(CONFIG)
       result = api.request_location_list
 

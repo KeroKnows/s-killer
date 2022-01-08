@@ -12,9 +12,10 @@
         .card-body
           p.card-title.fw-bold
             | Location
-          .form-check
-            input.form-check-input type='checkbox' id='location-all' name='location-all' checked='True'
-            label.form-check-label for='location-all' all
+          - filter.locations.each do |location|
+            .form-check
+              input.form-check-input type='checkbox' id="location-#{location}" name="location-#{location}" checked='True'
+              label.form-check-label for="location-#{location}" = location
     .col-8
       / Textarea: skillset
       h6.mx-3.form-label for='skills' 

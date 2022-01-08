@@ -28,7 +28,16 @@ module Skiller
 
       # GET /search
       router.on 'search' do
-        view 'search'
+        locations = Service::RequestLocations.new.call
+
+        if locations.failure?
+          flash[:error] = locations.failure
+          router.redirect('/')
+        end
+
+        locations = locations.value!.locations
+        filter = Views::Filter.new(locations)
+        view 'search', locals: { filter: filter }
       end
 
       # GET /detail/{JOB_ID}

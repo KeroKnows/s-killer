@@ -12,7 +12,6 @@ module Skiller
       step :reify_result
 
       # Request available location list from Skiller::API
-      # :reek:UncommunicativeVariableName for rescued error
       def retrieve_locations
         result = Gateway::Api.new(App.config).request_location_list
         result.success? ? Success(result.payload) : Failure(result.message)
@@ -21,7 +20,6 @@ module Skiller
       end
 
       # Transform result back to a representer
-      # :reek:UncommunicativeVariableName for rescued error
       def reify_result(result_json)
         Representer::Locations.new(OpenStruct.new).from_json(result_json)
                               .then { |result| Success(result) }
