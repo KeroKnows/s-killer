@@ -1,39 +1,38 @@
 .container
-  .row
-    h2.my-3 id="title"
-      | Skillset of
-      span.fst-italic
-        =< "#{process.query}"
-    a.link-secondary.my-1 id="return-btn" href="/?query=#{process.query}"
-      i.fas.fa-share.mx-1
-      | search for other jobs
+  h2.my-3 id="title"
+    | Skillset of
+    span.fst-italic
+      =< "#{process.query}"
+  a.link-secondary.my-1 id="return-btn" href="/?query=#{process.query}"
+    i.fas.fa-share.mx-1
+    | search for other jobs
 
-  / Reactive progress reporter
-  - if process.in_progress?
-    hr.mx-2.my-3
-    .reactive-info
-      .progress-message
-        h5.y-3 = "Preparing for the analyzation process..."
-        p = "Estimated job count ##{process.task_count}"
-    script src = "#{process.javascript_url}"
-    javascript:
-      const client = new Faye.Client("#{process.server_route}");
-      const mailbox = document.getElementsByClassName("progress-message")[0];
-      var finished_job = 0;
-      client.subscribe("/#{process.channel_id}", function(message) {
-        console.debug(`Get socket: ${message}`)
-        if(!message) return;
+  .row.my-5
+    / Reactive progress reporter
+    - if process.in_progress?
+      hr.mx-2.my-3
+      .reactive-info
+        .progress-message
+          h5.y-3 = "Preparing for the analyzation process..."
+          p = "Estimated job count ##{process.task_count}"
+      script src = "#{process.javascript_url}"
+      javascript:
+        const client = new Faye.Client("#{process.server_route}");
+        const mailbox = document.getElementsByClassName("progress-message")[0];
+        var finished_job = 0;
+        client.subscribe("/#{process.channel_id}", function(message) {
+          console.debug(`Get socket: ${message}`)
+          if(!message) return;
 
-        finished_job += 1;
-        mailbox.innerHTML = `Progress: Finished job #${finished_job}/##{process.task_count} - ${message}`;
-        if(finished_job >= #{process.task_count}) {
-          mailbox.innerHTML = 'All analyzations are done!<br/>This page will automatically reload after 3 secs...';
-          setTimeout(() => window.location.reload(), 3000);
-        }
-      });
-  / Skillset information
-  - else
-    .row.my-3
+          finished_job += 1;
+          mailbox.innerHTML = `Progress: Finished job #${finished_job}/##{process.task_count} - ${message}`;
+          if(finished_job >= #{process.task_count}) {
+            mailbox.innerHTML = 'All analyzations are done!<br/>This page will automatically reload after 3 secs...';
+            setTimeout(() => window.location.reload(), 3000);
+          }
+        });
+    / Skillset information
+    - else
       .col-4
         / Skills Required card
         .card
@@ -48,30 +47,30 @@
                     = skill.count
       .col-8
         / Salary card
+        h3 Analyzation
+        hr.mb-4
         .card
           .card-header Salary
           .card-body
-            ul.list-group.list-group-flush id="salary-list"
-              li.list-group-item
-                | Maximum Year Salary:
-                span< = skillset.max_salary
-              li.list-group-item
-                | Minimum Year Salary:
-                span< = skillset.min_salary
-    .row.my-3
-      / Job Vacancy cards
-      div id="vacancy-box"
-        - skillset.jobs.each do |job|
-          .card.my-5.p-3
-            p.card-subtitle.text-muted
-              i.fas.fa-map-marker-alt.mx-1
-              span = job.location
-            h4.px-2.card-title = job.title
-            hr.mt-2.mb-3
-            p.px-4.card-text = job.brief
-            a.link-secondary.stretched-link href="/detail/#{job.id}"
-              | read more...
+            .card-title.fw-bold Maximum Year Salary
+            .card-text.px-3 = skillset.max_salary
+            .card-title.fw-bold.mt-2 Minimum Year Salary
+            .card-text.px-3 = skillset.min_salary
+        / Job Vacancy cards
+        .mt-5 id="vacancy-box"
+          h3 Related Jobs
+          hr.mb-4
+          - skillset.jobs.each do |job|
+            .card.mb-3.p-3
+              p.card-subtitle.text-muted
+                i.fas.fa-map-marker-alt.mx-1
+                span = job.location
+              h4.px-2.card-title = job.title
+              hr.mt-2.mb-3
+              p.px-4.card-text = job.brief
+              a.link-secondary.stretched-link href="/detail/#{job.id}"
+                | read more...
 
-    / Navigator
-    a.position-fixed.bottom-0.end-0.m-3.fs-2.link-secondary href='#'
-      i.fas.fa-chevron-circle-up
+  / Navigator
+  a.position-fixed.bottom-0.end-0.m-3.fs-2.link-secondary href='#'
+    i.fas.fa-chevron-circle-up
