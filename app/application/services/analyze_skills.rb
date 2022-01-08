@@ -25,7 +25,6 @@ module Skiller
       end
 
       # Request result from Skiller::API
-      # :reek:UncommunicativeVariableName for rescued error
       def retrieve_result(input)
         response = Gateway::Api.new(App.config).request_skillset(input[:query])
         return Failure(response.message) unless response.success?
@@ -37,7 +36,6 @@ module Skiller
       end
 
       # Transform result back to a representer
-      # :reek:UncommunicativeVariableName for rescued error
       def reify_result(input)
         response = input[:response]
         if response.ok?

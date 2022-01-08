@@ -5,28 +5,28 @@ require 'dry/transaction'
 module Skiller
   module Service
     # Get job details with the given job id
-    class RequestDetail
+    class RequestLocations
       include Dry::Transaction
 
-      step :retrieve_detail
+      step :retrieve_locations
       step :reify_result
 
-      # Request job detail from Skiller::API
+      # Request available location list from Skiller::API
       # :reek:UncommunicativeVariableName for rescued error
-      def retrieve_detail(job_id)
-        result = Gateway::Api.new(App.config).request_detail(job_id)
+      def retrieve_locations
+        result = Gateway::Api.new(App.config).request_location_list
         result.success? ? Success(result.payload) : Failure(result.message)
       rescue StandardError => e
-        Failure("Fail to retrieve job detail: #{e}")
+        Failure("Fail to retrieve location list: #{e}")
       end
 
       # Transform result back to a representer
       # :reek:UncommunicativeVariableName for rescued error
       def reify_result(result_json)
-        Representer::Detail.new(OpenStruct.new).from_json(result_json)
-                           .then { |result| Success(result) }
+        Representer::Locations.new(OpenStruct.new).from_json(result_json)
+                              .then { |result| Success(result) }
       rescue StandardError => e
-        Failure("Fail to reify job detail: #{e}")
+        Failure("Fail to reify location list: #{e}")
       end
     end
   end

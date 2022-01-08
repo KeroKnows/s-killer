@@ -13,7 +13,6 @@ module Skiller
       step :reify_result
 
       # Validate user input
-      # :reek:UncommunicativeVariableName for rescued error
       def validate_request(params)
         return Failure('At least on param should be given') if params.empty?
 
@@ -24,7 +23,6 @@ module Skiller
       end
 
       # Search the jobs with filter from Skiller::API
-      # :reek:UncommunicativeVariableName for rescued error
       def request_api(input)
         response = Gateway::Api.new(App.config).request_searching(input)
         return Failure(response.message) unless response.success?
@@ -36,7 +34,6 @@ module Skiller
       end
 
       # Transform result back to a representer
-      # :reek:UncommunicativeVariableName for rescued error
       def reify_result(input)
         response = input[:response]
         if response.ok?
