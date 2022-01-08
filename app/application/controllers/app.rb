@@ -26,6 +26,20 @@ module Skiller
         end
       end
 
+      # GET /search
+      router.on 'search' do
+        locations = Service::RequestLocations.new.call
+
+        if locations.failure?
+          flash[:error] = locations.failure
+          router.redirect('/')
+        end
+
+        locations = locations.value!.locations
+        filter = Views::Filter.new(locations)
+        view 'search', locals: { filter: filter }
+      end
+
       # GET /detail/{JOB_ID}
       router.on 'detail' do
         router.on Integer do |job_id|
@@ -43,11 +57,24 @@ module Skiller
         end
       end
 
-      router.on 'result' do
-        router.is do
-          # POST /result
+      router.on 'results' do
+        router.on 'skills' do
+          # POST /results/skills
           router.post do
-            query_form = Forms::Query.new.call(router.params)
+            query_form = Forms::JobQuery.new.call(router.params)
+
+            if query_form.failure?
+              error_msg = query_form.errors.to_h.map { |key, val| "#{key} #{val.first}" }.join(', ')
+              flash[:error] = "invalid query: #{error_msg}"
+              router.redirect '/'
+            end
+
+            router.redirect "/results/skills?query=#{query_form[:query]}"
+          end
+
+          # GET /results/skills?query=<QUERY>
+          router.get do
+            query_form = Forms::JobQuery.new.call(router.params)
             skill_analysis = Service::AnalyzeSkills.new.call(query_form)
 
             if skill_analysis.failure?
@@ -65,13 +92,46 @@ module Skiller
                 jobskill[:query], jobskill[:jobs], jobskill[:skills], jobskill[:salary_dist]
               )
               flash[:notice] = "Your last query is '#{skillset.query}'"
-              # response.expires(60, public: true) if App.environment == :production
             end
 
             process_info = Views::AnalyzeProcess.new(App.config, skill_analysis[:query], response)
 
-            view 'result', locals: { skillset: skillset,
-                                     process: process_info }
+            view 'result_skill', locals: { skillset: skillset,
+                                           process: process_info }
+          end
+        end
+
+        router.on 'jobs' do
+          # POST /results
+          router.post do
+            search_form = Forms::SkillQuery.new.call(router.params)
+
+            if search_form.failure?
+              error_msg = search_form.failure.map { |key, val| "#{key} #{val.first}" }.join(', ')
+              flash[:error] = "invalid skillset: #{error_msg}"
+              router.redirect '/search'
+            end
+
+            search_form = search_form.value!
+            router.redirect "/results/jobs?#{search_form[:query]}"
+          end
+
+          # GET /results/jobs?name[]=<SKILL>&job_level[]=<LEVEL>&location[]=<LOCATION>
+          router.get do
+            filter_search = Service::FilterSearch.new.call(router.params)
+
+            if filter_search.failure?
+              flash[:error] = filter_search.failure
+              router.redirect '/search'
+            end
+
+            filter_search = filter_search.value!
+            jobskill = filter_search[:result]
+            skillset = Views::SkillJob.new(
+              jobskill[:query], jobskill[:jobs], jobskill[:skills], jobskill[:salary_dist]
+            )
+
+            view 'result_job', locals: { skillset: skillset }
           end
         end
       end

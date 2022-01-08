@@ -3,14 +3,28 @@ div.row
     h1.display-1 S-killer
     p Know your job. Know your skills.
 
-  .row
-    form action='/result' method='POST'
+  include :flash_bar
+
+  .row.my-3
+    form action='/results/skills' method='POST'
       .card.p-3.border-none.bg-light
         label.form-label.card-title.fs-5 for='query' 
           | Enter job title or skills to analyze:
         .input-group.mb-3
           input.form-control type='text' name='query' placeholder='data scientist' value="#{query}"
-          button.btn.btn-primary type='submit'
+          button.btn.btn-primary type='submit' id='skill-search-submit'
             | submit
 
-include :flash_bar
+  .row.my-3
+    form action='/results/jobs' method='POST'
+      .card.p-3.border-none.bg-light
+        label.form-label.card-title.fs-5 for='skills' 
+          | Or quick-search for the jobs that meet your skills!
+        p.text-secondary
+          | > Click
+          a<> href='/search' here
+          | for advanced searching
+        .input-group.mb-3
+          input.form-control type='text' name='skills' placeholder='Ruby, Python, JavaScript'
+          button.btn.btn-primary type='submit' id='job-search-submit'
+            | submit

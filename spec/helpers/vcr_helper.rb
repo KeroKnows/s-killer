@@ -13,6 +13,7 @@ module Skiller
     def self.setup_vcr
       VCR.configure do |config|
         # ignore driver communicution during the acceptance test
+        config.ignore_hosts 'chromedriver.storage.googleapis.com' # ignore driver update messages
         config.ignore_request { |request| filter_request(request) }
         config.cassette_library_dir = CASSETTES_FOLDER
         config.hook_into :webmock

@@ -9,11 +9,18 @@ class IndexPage
   div(:warning_message, id: 'flash-bar-danger')
   div(:success_message, id: 'flash-bar-success')
 
-  text_field(:query, name: 'query')
-  button(:submit, type: 'submit')
+  text_field(:query_search, name: 'query')
+  text_field(:skill_search, name: 'skills')
+  button(:skill_submit, type: 'submit', id: 'skill-search-submit')
+  button(:job_submit, type: 'submit', id: 'job-search-submit')
 
-  def query_job(job_title)
-    self.query = job_title
-    submit
+  def search_skill_with_query(query)
+    self.query_search = query
+    skill_submit
+  end
+
+  def search_job_with_skill(skill_list)
+    self.skill_search = skill_list
+    job_submit
   end
 end

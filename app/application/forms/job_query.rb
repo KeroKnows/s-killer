@@ -5,13 +5,13 @@ require 'dry-validation'
 module Skiller
   module Forms
     # Form object to check query exists
-    class Query < Dry::Validation::Contract
+    class JobQuery < Dry::Validation::Contract
       params do
         required(:query).filled(:string)
       end
 
       rule(:query) do
-        key.failure('is an empty request') if value.strip.empty?
+        key.failure('should not be empty') if value.strip.empty?
       end
     end
   end
