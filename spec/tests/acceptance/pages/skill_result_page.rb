@@ -11,8 +11,8 @@ class SkillResultPage
 
   h2(:title, id: 'title')
   unordered_list(:skill_list, id: 'skill-list')
-  unordered_list(:salary_list, id: 'salary-list')
-  div(:vacancies, id: 'vacancy-box')
+  div(:salary_info, id: 'salary-info-box')
+  div(:vacancies, id: 'job-vacancy-box')
   link(:to_last_page, id: 'return-btn')
 
   def skills

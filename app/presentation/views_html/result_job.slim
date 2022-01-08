@@ -20,7 +20,7 @@
                 span.badge.mx-2.bg-light.rounded.text-black.float-end.skill-count
                   = skill.count
       / Salary card
-      .card.mb-3
+      .card.mb-3 id='salary-info-box'
         .card-header Salary
         .card-body
             .card-title.fw-bold Maximum Year Salary
@@ -30,7 +30,7 @@
             .card-text.px-3 = skillset.min_salary
     .col-8
       / Job Vacancy cards
-      .container id="vacancy-box"
+      .container id='job-vacancy-box'
         - skillset.jobs.each do |job|
           .card.mb-3.p-3
             p.card-subtitle.text-muted

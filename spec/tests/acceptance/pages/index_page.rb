@@ -10,7 +10,7 @@ class IndexPage
   div(:success_message, id: 'flash-bar-success')
 
   text_field(:query_search, name: 'query')
-  text_area(:skill_search, name: 'skills')
+  text_field(:skill_search, name: 'skills')
   button(:skill_submit, type: 'submit', id: 'skill-search-submit')
   button(:job_submit, type: 'submit', id: 'job-search-submit')
 

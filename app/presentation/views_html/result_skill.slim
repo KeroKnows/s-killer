@@ -49,7 +49,7 @@
         / Salary card
         h3 Analyzation
         hr.mb-4
-        .card
+        .card id='salary-info-box'
           .card-header Salary
           .card-body
             .card-title.fw-bold Maximum Year Salary
@@ -57,7 +57,7 @@
             .card-title.fw-bold.mt-2 Minimum Year Salary
             .card-text.px-3 = skillset.min_salary
         / Job Vacancy cards
-        .mt-5 id="vacancy-box"
+        .mt-5 id='job-vacancy-box'
           h3 Related Jobs
           hr.mb-4
           - skillset.jobs.each do |job|

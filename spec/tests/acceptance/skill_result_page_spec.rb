@@ -38,7 +38,7 @@ describe 'Result Page Acceptance Tests' do
       # ...and all elements should be shown properly
       _(page.title_element.present?).must_equal true
       _(page.skill_list_element.present?).must_equal true
-      _(page.salary_list_element.present?).must_equal true
+      _(page.salary_info_element.present?).must_equal true
       _(page.vacancies_element.present?).must_equal true
       _(page.skills.length).wont_equal 0
 
