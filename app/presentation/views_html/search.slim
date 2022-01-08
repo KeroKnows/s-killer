@@ -11,11 +11,24 @@
         .card-header Filter
         .card-body
           p.card-title.fw-bold
-            | Location
-          - filter.locations.each do |location|
+            | Job Level
+          .form-check
+            input.form-check-input type='radio' name='job_level' value='all' id='level-all' checked='True'
+            label.form-check-label.w-100 for='level-all' all
+          - filter.levels.each do |level|
             .form-check
-              input.form-check-input type='checkbox' id="location-#{location}" name="location-#{location}" checked='True'
-              label.form-check-label for="location-#{location}" = location
+              input.form-check-input type='radio' name='job_level' value="#{level}" id="level-#{level}"
+              label.form-check-label.w-100 for="level-#{level}" = level
+          hr
+          p.card-title.fw-bold
+            | Location
+          .form-check
+            input.form-check-input type='radio' name='location' value='all' id='location-all' checked='True'
+            label.form-check-label.w-100 for='location-all' all
+          - filter.locations.each do |location|
+            .form-check 
+              input.form-check-input type='radio' name='location' value="#{location}" id="location-#{location}"
+              label.form-check-label.w-100 for="location-#{location}" = location
     .col-8
       / Textarea: skillset
       h6.mx-3.form-label for='skills' 

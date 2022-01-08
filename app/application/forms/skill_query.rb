@@ -13,6 +13,8 @@ module Skiller
       class Contract < Dry::Validation::Contract
         params do
           required(:skills).filled(:string)
+          required(:job_level).filled(:string)
+          required(:location).filled(:string)
         end
 
         rule(:skills) do
@@ -24,16 +26,33 @@ module Skiller
         contract = Contract.new.call(input)
         return Failure(contract.errors.to_h) if contract.failure?
 
-        skill_list = contract[:skills].split(/[,\n\s]+/)
-        query = query_to_s(skill_list)
+        params = process_form(contract)
+        query = params_to_s(params).join('&')
         Success(query: query)
       end
 
       private
 
-      def query_to_s(skills)
-        skills = skills.map { |skill| "name[]=#{skill}" }
-        skills.join('&')
+      def process_form(contract)
+        params = Hash.new
+        params[:name] = contract[:skills].split(/[,\n\s]+/)
+        level = contract[:job_level]
+        params[:job_level] = level unless level.match? 'all'
+        location = contract[:location]
+        params[:location] = location unless location.match? 'all'
+        params
+      end
+
+      def params_to_s(params)
+        params.map do |key, values|
+          expand_query(key, values)
+        end
+      end
+
+      def expand_query(key, value)
+        value.map { |val| "#{key}[]=#{val}" }.join('&')
+      rescue NoMethodError
+        "#{key}=#{value}"
       end
     end
   end

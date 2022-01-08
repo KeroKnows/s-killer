@@ -10,6 +10,12 @@ module  Views
       @locations = locations
     end
 
-    attr_reader :locations
+    def levels
+      %w[Junior Senior]
+    end
+
+    def locations
+      @locations.sort
+    end
   end
 end

@@ -116,7 +116,7 @@ module Skiller
             router.redirect "/results/jobs?#{search_form[:query]}"
           end
 
-          # GET /results/jobs?name[]=<SKILL>
+          # GET /results/jobs?name[]=<SKILL>&job_level[]=<LEVEL>&location[]=<LOCATION>
           router.get do
             filter_search = Service::FilterSearch.new.call(router.params)
 

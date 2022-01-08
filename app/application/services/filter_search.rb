@@ -16,8 +16,7 @@ module Skiller
       def validate_request(params)
         return Failure('At least on param should be given') if params.empty?
 
-        skills = params['name']
-        Success(name: skills)
+        Success(params)
       rescue StandardError => e
         Failure("Fail to validate the request: #{e}")
       end
